@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta charset="UTF-8" />
+
+    <title>rmodal.js</title>
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="http://raw.github.com/daneden/animate.css/master/animate.css" type="text/css" />
+
+    <link rel="stylesheet" href="dist/rmodal.css" type="text/css" />
+    <script type="text/javascript" src="dist/rmodal.js"></script>
+
+    <script type="text/javascript">
+        window.onload = function() {
+            var modal = new RModal(document.getElementById('modal'), {
+                //content: 'Abracadabra'
+                beforeOpen: function(next) {
+                    console.log('beforeOpen');
+                    next();
+                }
+                , afterOpen: function() {
+                    console.log('opened');
+                }
+
+                , beforeClose: function(next) {
+                    console.log('beforeClose');
+                    next();
+                }
+                , afterClose: function() {
+                    console.log('closed');
+                }
+                // , overlayClose: false
+                // , dialogClass: 'modal-dialog modal-dialog-lg'
+                // , openClass: 'animated fadeIn'
+                // , closeClass: 'animated fadeOut'
+            });
+
+            window.addEventListener('resize', function() {
+                modal.resize();
+            }, false);
+
+            document.addEventListener('keydown', function(ev) {
+                if (ev.which == 27) {
+                    modal.close();
+                }
+            }, false);
+
+            document.getElementById('showModal').addEventListener("click", function(ev) {
+                ev.preventDefault();
+                modal.open();
+            }, false);
+
+            window.modal = modal;
+        }
+    </script>
+</head>
+<body>
+    <div id="modal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-horizontal" method="get">
+                    <div class="modal-header">
+                        <strong>Yep, I'm a dialog...</strong>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="dummyText" class="control-label col-xs-4">Dummy text</label>
+                            <div class="input-group col-xs-7">
+                                <input type="text" name="dummyText" id="dummyText" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" onclick="modal.close();">Cancel</button>
+                        <button class="btn btn-primary" type="submit" onclick="modal.close();">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>rmodal.js</h3>
+                <ul>
+                    <li>A simple modal dialog</li>
+                    <li>Plain JavaScript only - no dependencies</li>
+                    <li>IE9+ supported</li>
+                    <li>Less than 1KB when gzipped and minified</li>
+                    <li>Animate.css friendly</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <a href="#" id="showModal" class="btn btn-success">Show modal</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
