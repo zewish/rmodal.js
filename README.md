@@ -7,6 +7,10 @@ A simple modal dialog with no external dependencies
 - Less than 1KB when gzipped and minified
 - Animate.css friendly
 
+Demo
+----
+http://plnkr.co/edit/XXFKwHHcZD4Ecjh8twaW?p=preview
+
 Installation
 ------------
 `bower install rmodal --save`
