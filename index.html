@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="http://raw.github.com/daneden/animate.css/master/animate.css" type="text/css" />
 
-    <link rel="stylesheet" href="dist/rmodal.css" type="text/css" />
-    <script type="text/javascript" src="dist/rmodal.js"></script>
+    <link rel="stylesheet" href="src/rmodal.css" type="text/css" />
+    <script type="text/javascript" src="src/rmodal.js"></script>
 
     <script type="text/javascript">
         window.onload = function() {
@@ -32,10 +32,10 @@
                 , afterClose: function() {
                     console.log('closed');
                 }
-                // , overlayClose: false
+                // , bodyClass: 'modal-open'
                 // , dialogClass: 'modal-dialog modal-dialog-lg'
-                // , openClass: 'animated fadeIn'
-                // , closeClass: 'animated fadeOut'
+                // , dialogOpenClass: 'animated fadeIn'
+                // , dialogCloseClass: 'animated fadeOut'
             });
 
             window.addEventListener('resize', function() {
@@ -59,7 +59,7 @@
 </head>
 <body>
     <div id="modal" class="modal">
-        <div class="modal-dialog">
+        <div class="modal-dialog animated">
             <div class="modal-content">
                 <form class="form-horizontal" method="get">
                     <div class="modal-header">

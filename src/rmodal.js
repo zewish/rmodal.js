@@ -2,42 +2,44 @@
 
     function isFunction(obj) {
         return (Object.prototype.toString.call(obj) === '[object Function]');
-    }
+    };
 
-    function stopPropagation(ev) {
-        var ev = ev || window.event;
-        if (ev.stopPropagation) {
-            ev.stopPropagation();
+    function addClass(element, elClass) {
+        var classes = element.className.split(/\s+/);
+        if (!classes[0]) {
+            classes = [];
         }
-        if (ev.cancelBubble != null) {
-            ev.cancelBubble = true;
+        if (classes.indexOf(elClass) > -1) {
+            return;
         }
-    }
+        classes.push(elClass);
+        element.className = classes.join(' ');
+    };
+
+    function removeClass(element, elClass) {
+        var classes = element.className.split(/\s+/)
+            , index = classes.indexOf(elClass);
+        if (index > -1) {
+            classes.splice(index, 1);
+        }
+        element.className = classes.join(' ');
+    };
 
     function RModal(element, options) {
         var self = this;
-        this.options = options;
+
+        this.options = options || {};
+        this.options.bodyClass = this.options.bodyClass || 'modal-open';
+        this.options.dialogClass = this.options.dialogClass || 'modal-dialog';
+        this.options.dialogOpenClass = this.options.dialogOpenClass || 'bounceInDown';
+        this.options.dialogCloseClass = this.options.dialogCloseClass || 'bounceOutUp';
 
         this.overlay = element;
-
-        this.dialogClass = options.dialogClass || 'modal-dialog';
-        this.dialog = element.querySelector('.modal-dialog');
+        this.dialog = element.querySelector('.' + this.options.dialogClass);
 
         if (this.options.content !== undefined) {
             this.content(this.options.content);
         }
-
-        if (this.options.overlayClose === false) {
-            return;
-        }
-
-        this.overlay.addEventListener('click', function() {
-            self.close();
-        }, false);
-
-        this.dialog.addEventListener('click', function(ev) {
-            stopPropagation(ev);
-        }, false);
     };
 
     RModal.prototype.open = function(content) {
@@ -55,9 +57,12 @@
     RModal.prototype._doOpen = function() {
         var self = this;
 
-        this.dialog.className = (this.options.openClass || 'animated bounceInDown') + ' ' + this.dialogClass;
-        this.overlay.style.display = 'block';
+        addClass(document.querySelector('body'), this.options.bodyClass);
 
+        removeClass(this.dialog, this.options.dialogCloseClass);
+        addClass(this.dialog, this.options.dialogOpenClass);
+
+        this.overlay.style.display = 'block';
         this.resize();
         if (isFunction(this.options.afterOpen)) {
             this.options.afterOpen();
@@ -67,18 +72,20 @@
     RModal.prototype.close = function(ev) {
         var self = this;
         if (isFunction(this.options.beforeClose)) {
-            this.options.beforeClose(function() {
+            return this.options.beforeClose(function() {
                 self._doClose();
             });
-            return stopPropagation(ev);
         }
         this._doClose();
-        return stopPropagation();
     };
 
     RModal.prototype._doClose = function() {
         var self = this;
-        this.dialog.className = (this.options.closeClass || 'animated bounceOutUp') + ' ' + this.dialogClass;
+
+        removeClass(this.dialog, this.options.dialogOpenClass);
+        addClass(this.dialog, this.options.dialogCloseClass);
+
+        removeClass(document.querySelector('body'), this.options.bodyClass);
 
         if (isFunction(this.options.afterClose)) {
             this.options.afterClose();
@@ -106,8 +113,6 @@
 
         this.overlay.style.width = overlayWidth + 'px';
         this.overlay.style.height = overlayHeight + 'px';
-
-        this.dialog.style.left = ((overlayWidth - this.dialog.clientWidth) / 2) + 'px';
     };
 
     window.RModal = RModal;
