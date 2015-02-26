@@ -14,7 +14,7 @@
             box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
 }
 
-body.no-bootstra {
+body.no-bootstrap {
     padding: 0;
     margin: 0;
 }
