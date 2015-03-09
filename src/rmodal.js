@@ -1,8 +1,9 @@
-(function(window, document, undefined) {
+(function(window, document) {
+    "use strict";
 
     function isFunction(obj) {
         return (Object.prototype.toString.call(obj) === '[object Function]');
-    };
+    }
 
     function addClass(element, elClass) {
         var classes = element.className.split(/\s+/);
@@ -14,7 +15,7 @@
         }
         classes.push(elClass);
         element.className = classes.join(' ');
-    };
+    }
 
     function removeClass(element, elClass) {
         var classes = element.className.split(/\s+/)
@@ -23,7 +24,7 @@
             classes.splice(index, 1);
         }
         element.className = classes.join(' ');
-    };
+    }
 
     function RModal(element, options) {
         var self = this;
@@ -40,7 +41,7 @@
         if (this.options.content !== undefined) {
             this.content(this.options.content);
         }
-    };
+    }
 
     RModal.prototype.open = function(content) {
         var self = this;
@@ -67,7 +68,7 @@
         if (isFunction(this.options.afterOpen)) {
             this.options.afterOpen();
         }
-    }
+    };
 
     RModal.prototype.close = function(ev) {
         var self = this;
@@ -94,7 +95,7 @@
         setTimeout(function() {
             self.overlay.style.display = 'none';
         }, 500);
-    }
+    };
 
     RModal.prototype.content = function(content) {
         if (content === undefined) {
