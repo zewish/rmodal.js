@@ -1,8 +1,15 @@
 var gulp = require('gulp')
+    , jshint = require('gulp-jshint')
     , rename = require('gulp-rename')
     , uglify = require('gulp-uglify');
 
 process.chdir(__dirname);
+
+gulp.task('lint', function() {
+    return gulp.src('src/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
+});
 
 gulp.task('css', function() {
     return gulp.src('src/*.css')
@@ -20,4 +27,6 @@ gulp.task('js', function() {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', ['css', 'js']);
+gulp.task('build', ['css', 'js']);
+
+gulp.task('default', ['lint', 'build']);
