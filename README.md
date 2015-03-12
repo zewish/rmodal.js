@@ -14,18 +14,20 @@ http://plnkr.co/edit/XXFKwHHcZD4Ecjh8twaW?p=preview
 
 Installation
 ------------
-`bower install rmodal --save`
+`$ bower install rmodal --save`
 
 
 Development
 -----------
-`npm install`
-`npm install -g gulp`
+```
+$ npm install
+$ npm install -g gulp
+```
 
 Development: build
 --------
-`gulp build`
+`$ gulp build`
 
 Development: test
 -------
-`gulp lint test`
+`$ gulp lint test`
