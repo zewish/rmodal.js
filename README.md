@@ -6,6 +6,7 @@ A simple modal dialog with no external dependencies
 - IE9+ supported
 - Less than 1KB when gzipped and minified
 - Animate.css friendly
+- Fully unit tested
 
 Demo
 ----
@@ -14,3 +15,11 @@ http://plnkr.co/edit/XXFKwHHcZD4Ecjh8twaW?p=preview
 Installation
 ------------
 `bower install rmodal --save`
+
+Building
+--------
+`gulp build`
+
+Testing
+-------
+`gulp lint test`

@@ -100,10 +100,6 @@ describe('RModal', function() {
             ).to.be.true;
             RModal.prototype.content.restore();
         });
-
-        it('should export RModal constructor', function() {
-            expect(window.RModal).to.be.a('function');
-        });
     });
 
     describe('open()', function() {
@@ -314,5 +310,43 @@ describe('RModal', function() {
 
             expect(elDialog.innerHTML).to.be.equal('testing2')
         });
+    });
+
+    describe('resize()', function() {
+        it('should set "this.overlay.style[width,height]" to "window[innerWidth,innerHeight]"'
+            , function() {
+                var instance = create();
+
+                elBody.clientHeight = 312;
+                elBody.clientWidth = 422;
+
+                window.innerHeight = 531;
+                window.innerWidth = 542;
+
+                instance.resize();
+
+                expect(instance.overlay.style.width).to.be.equal(window.innerWidth + 'px');
+                expect(instance.overlay.style.height).to.be.equal(window.innerHeight + 'px');
+            }
+        );
+
+        it('should set "this.overlay.style[width,height]" to "body[clientWidth,clientHeight]"'
+            , function() {
+                var instance = create();
+
+                elDialog.innerHTML = '<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>';
+                window.innerHeight = 123;
+                window.innerWidth = 182;
+
+                instance.resize();
+
+                expect(instance.overlay.style.width).to.be.equal(elBody.clientWidth + 'px');
+                expect(instance.overlay.style.height).to.be.equal(elBody.clientHeight + 'px');
+            }
+        );
+    });
+
+    it('should export RModal constructor', function() {
+        expect(window.RModal).to.be.a('function');
     });
 });

@@ -1,7 +1,8 @@
 var gulp = require('gulp')
     , jshint = require('gulp-jshint')
     , rename = require('gulp-rename')
-    , uglify = require('gulp-uglify');
+    , uglify = require('gulp-uglify')
+    , karma = require('karma');
 
 process.chdir(__dirname);
 
@@ -28,5 +29,12 @@ gulp.task('js', function() {
 });
 
 gulp.task('build', ['css', 'js']);
+
+gulp.task('test', function(done) {
+    karma.server.start({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, done);
+});
 
 gulp.task('default', ['lint', 'build']);
