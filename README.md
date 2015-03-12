@@ -16,10 +16,16 @@ Installation
 ------------
 `bower install rmodal --save`
 
-Building
+
+Development
+-----------
+`npm install`
+`npm install -g gulp`
+
+Development: build
 --------
 `gulp build`
 
-Testing
+Development: test
 -------
 `gulp lint test`
