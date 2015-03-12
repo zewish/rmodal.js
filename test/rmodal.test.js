@@ -107,17 +107,6 @@ describe('RModal', function() {
     });
 
     describe('open()', function() {
-        it('should call "this.content()" with undefined as param', function() {
-            var stub = sinon.stub(RModal.prototype, 'content');
-            var instance = create();
-            instance.open();
-
-            expect(
-                stub.withArgs(undefined).calledOnce
-            ).to.be.true;
-            RModal.prototype.content.restore();
-        });
-
         it('should call "this.content()" with "this.options.content" as param', function() {
             var stub = sinon.stub(RModal.prototype, 'content');
             var instance = create({
@@ -164,7 +153,7 @@ describe('RModal', function() {
         it('should add "this.options.bodyClass" to body.className', function() {
             elBody.className = 'default-class';
             var instance = create({
-                bodyClass: 'some test classes'
+                bodyClass: 'test-class'
             });
 
             instance._doOpen();
@@ -222,6 +211,108 @@ describe('RModal', function() {
 
             instance._doOpen();
             expect(spy.calledOnce).to.be.true;
+        });
+    });
+
+    describe('close()', function() {
+        it('should call "this.options.beforeClose" if it is a function"', function() {
+            var spy = sinon.spy(function(next) {
+                next();
+            });
+            var instance = create({
+                beforeClose: spy
+            });
+
+            instance.close();
+            expect(spy.calledOnce).to.be.true;
+        });
+
+        it('should call "this._doClose()"', function() {
+            var spy = sinon.spy(RModal.prototype, '_doClose');
+            var instance = create({
+                beforeClose: function(next) {
+                    next();
+                }
+            });
+            instance.close();
+            expect(spy.calledOnce).to.be.true;
+
+            instance = create();
+            instance.close();
+            expect(spy.calledTwice).to.be.true;
+            RModal.prototype._doClose.restore();
+        });
+    });
+
+    describe('_doClose()', function() {
+        it('should remove "this.options.dialogOpenClass" from dialog.className', function() {
+            elDialog.className = 'modal-dialog dialog-class3 open-class';
+            var instance = create({
+                dialogOpenClass: 'open-class'
+            });
+
+            instance._doClose();
+            expect(instance.dialog.className).to.be.equal(
+                'modal-dialog dialog-class3 bounceOutUp'
+            );
+        });
+
+        it('should add "this.options.dialogCloseClass" from dialog.className', function() {
+            elDialog.className = 'modal-dialog dialog-class4';
+            var instance = create({
+                dialogCloseClass: 'close-class'
+            });
+
+            instance._doClose();
+            expect(instance.dialog.className).to.be.equal(
+                'modal-dialog dialog-class4 close-class'
+            );
+        });
+
+        it('should remove "this.options.bodyClass" from body.className', function() {
+            elBody.className = 'default-body-class modal-open-class';
+            var instance = create({
+                bodyClass: 'modal-open-class'
+            });
+
+            instance._doClose();
+            expect(elBody.className).to.be.equal('default-body-class');
+        });
+
+        it('should call "this.options.afterClose" if it is a function"', function() {
+            var spy = sinon.spy();
+            var instance = create({
+                afterClose: spy
+            });
+
+            instance._doClose();
+            expect(spy.calledOnce).to.be.true;
+        });
+
+        it('should call set "this.overlay.style.display" to "none"', function() {
+            var timers = sinon.useFakeTimers();
+            var instance = create();
+
+            instance._doClose();
+            timers.tick(500);
+            expect(instance.overlay.style.display).to.be.equal('none');
+            timers.restore();
+        });
+    });
+
+    describe('content()', function() {
+        it('should return this.dialog.innerHTML', function() {
+            var instance = create();
+            elDialog.innerHTML = 'testing';
+
+            expect(instance.content()).to.be.equal(elDialog.innerHTML);
+        });
+
+        it('should change this.dialog.innerHTML if a param is passed', function() {
+            var instance = create();
+            instance.content('testing2');
+
+            expect(elDialog.innerHTML).to.be.equal('testing2')
         });
     });
 });
