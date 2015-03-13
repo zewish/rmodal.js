@@ -12,7 +12,8 @@
     "dialog",
     "javascript",
     "simple",
-    "plain"
+    "plain",
+    "browser"
   ],
   "author": "Iskren Slavov <iskren.s@gmail.com>",
   "license": "MIT",

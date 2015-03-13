@@ -14,7 +14,8 @@
     "dialog",
     "javascript",
     "simple",
-    "plain"
+    "plain",
+    "browser"
   ],
   "dependencies": {},
   "license": "MIT",
