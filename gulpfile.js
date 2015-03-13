@@ -37,4 +37,4 @@ gulp.task('test', function(done) {
     }, done);
 });
 
-gulp.task('default', ['lint', 'build']);
+gulp.task('default', ['lint', 'test', 'build']);

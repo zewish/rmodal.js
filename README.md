@@ -8,9 +8,11 @@ A simple modal dialog with no external dependencies
 - Animate.css friendly
 - Fully unit tested
 
+
 Demo
 ----
 http://plnkr.co/edit/XXFKwHHcZD4Ecjh8twaW?p=preview
+
 
 Installation
 ------------
@@ -27,6 +29,7 @@ $ npm install -g gulp
 Development: build
 --------
 `$ gulp build`
+
 
 Development: test
 -------

@@ -117,5 +117,4 @@
     };
 
     window.RModal = RModal;
-
 })(this, this.document);
