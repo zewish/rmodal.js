@@ -16,7 +16,11 @@ http://plnkr.co/edit/XXFKwHHcZD4Ecjh8twaW?p=preview
 
 Installation
 ------------
-`$ bower install rmodal --save`
+```
+$ bower install rmodal --save
+# or
+$ npm install rmodal --save
+```
 
 
 Development
