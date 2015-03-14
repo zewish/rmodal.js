@@ -1,6 +1,6 @@
 {
   "name": "rmodal",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A simple modal dialog with no external dependencies. IE9+ supported.",
   "main": "angular-messenger.js",
   "repository": {

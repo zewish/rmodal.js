@@ -54,6 +54,7 @@ describe('RModal', function() {
             expect(instance.options.dialogClass).to.equal('modal-dialog');
             expect(instance.options.dialogOpenClass).to.equal('bounceInDown');
             expect(instance.options.dialogCloseClass).to.equal('bounceOutUp');
+            expect(instance.options.focus).to.eql(['input', 'select', 'textarea', 'button']);
         });
 
         it('should set "this.options" properties when provided', function() {
@@ -62,6 +63,7 @@ describe('RModal', function() {
                 , dialogClass: 'custom-dialog-class'
                 , dialogOpenClass: 'custom-dialog-open-class'
                 , dialogCloseClass: 'custom-dialog-close-class'
+                , focus: 'some-other-focus-element'
             };
             var instance = create(opts);
 
@@ -69,6 +71,12 @@ describe('RModal', function() {
             expect(instance.options.dialogClass).to.equal(opts.dialogClass);
             expect(instance.options.dialogOpenClass).to.equal(opts.dialogOpenClass);
             expect(instance.options.dialogCloseClass).to.equal(opts.dialogCloseClass);
+            expect(instance.options.focus).to.equal(opts.focus);
+        });
+
+        it('should set "this.focusOutElement" to null', function() {
+            var instance = create();
+            expect(instance.focusOutElement).to.be.null;
         });
 
         it('should assign "this.overlay" reference to the "element" param', function() {
@@ -199,6 +207,48 @@ describe('RModal', function() {
             RModal.prototype.resize.restore();
         });
 
+        it('should set "this.focusOutElement" to "document.activeElement"', function() {
+            var expected = document.activeElement;
+            var instance = create();
+
+            instance._doOpen();
+            expect(instance.focusOutElement).to.be.eql(expected);
+        });
+
+        it('should call "this.focus()" with "this.element(this.options.focus)" as param'
+            , function() {
+                var instance = create();
+                var stub = sinon.stub(RModal.prototype, 'element')
+                    .withArgs(instance.options.focus)
+                    .onCall(0)
+                    .returns('element_found');
+                var spy = sinon.spy(RModal.prototype, 'focus');
+
+                instance._doOpen();
+                expect(spy.withArgs('element_found').calledOnce).to.be.true;
+
+                RModal.prototype.element.restore();
+                RModal.prototype.focus.restore();
+            }
+        );
+
+        it('should not call "this.focus()" with "this.element(this.options.focus)" as param'
+            , function() {
+                var instance = create({
+                    focus: false
+                });
+                var spyElement = sinon.spy(RModal.prototype, 'element');
+                var spyFocus = sinon.spy(RModal.prototype, 'focus');
+
+                instance._doOpen();
+                expect(spyElement.calledOnce).to.be.false;
+                expect(spyFocus.calledOnce).to.be.false;
+
+                RModal.prototype.element.restore();
+                RModal.prototype.focus.restore();
+            }
+        );
+
         it('should call "this.options.afterOpen" if it is a function"', function() {
             var spy = sinon.spy();
             var instance = create({
@@ -275,6 +325,30 @@ describe('RModal', function() {
             expect(elBody.className).to.be.equal('default-body-class');
         });
 
+        it('should call "this.focus()" with "this.focusOutElement" as param', function() {
+            var instance = create();
+            var spy = sinon.spy(RModal.prototype, 'focus');
+
+            instance._doClose();
+            expect(
+                spy.withArgs(instance.focusOutElement).calledOnce
+            ).to.be.true;
+            RModal.prototype.focus.restore();
+        });
+
+        it('should not call "this.focus()"', function() {
+            var instance = create({
+                focus: false
+            });
+            var spy = sinon.spy(RModal.prototype, 'focus');
+
+            instance._doClose();
+            expect(
+                spy.withArgs(instance.focusOutElement).calledOnce
+            ).to.be.false;
+            RModal.prototype.focus.restore();
+        });
+
         it('should call "this.options.afterClose" if it is a function"', function() {
             var spy = sinon.spy();
             var instance = create({
@@ -344,6 +418,82 @@ describe('RModal', function() {
                 expect(instance.overlay.style.height).to.be.equal(elBody.clientHeight + 'px');
             }
         );
+    });
+
+    describe('element()', function() {
+        it('should call "this.dialog.querySelector()" with "selector" as a param', function() {
+            var instance = create();
+            var spy = sinon.spy(instance.dialog, 'querySelector');
+
+            instance.element('element-selector1');
+            expect(spy.withArgs('element-selector1').calledOnce).to.be.true;
+            instance.dialog.querySelector.restore();
+        });
+
+        it('should return result of "this.dialog.querySelector"', function() {
+            var instance = create();
+            var stub = sinon.stub(instance.dialog, 'querySelector')
+                .withArgs('element-selector2')
+                .onCall(0)
+                .returns('element1');
+
+            var result = instance.element('element-selector2');
+            expect(result).to.be.equal('element1');
+        });
+
+        it('should return first non-null result of "this.dialog.querySelector"', function() {
+            var instance = create();
+            var stub = sinon.stub(instance.dialog, 'querySelector')
+                .withArgs('element-selector3')
+                .returns(null)
+
+                .withArgs('element-selector4')
+                .returns('element2');
+
+            var result = instance.element([
+                'element-selector3'
+                , 'element-selector4'
+            ]);
+            expect(result).to.be.equal('element2');
+        });
+
+        it('should return null', function() {
+            var instance = create();
+            var stub = sinon.stub(instance.dialog, 'querySelector')
+                .withArgs('element-selector5')
+                .returns(null)
+
+                .withArgs('element-selector6')
+                .returns(null);
+
+            var result = instance.element([
+                'element-selector5'
+                , 'element-selector6'
+            ]);
+            expect(result).to.be.equal(null);
+        });
+    });
+
+    describe('focus()', function() {
+        it('should call "element.focus()"', function() {
+            var spy = sinon.spy();
+            var instance = create();
+
+            instance.focus({
+                focus: spy
+            });
+            expect(spy.calledOnce).to.be.true;
+        });
+
+        it('should call "this.dialog.firstChild.focus()"', function() {
+            var instance = create();
+
+            elDialog.innerHTML = '<input type="text" />';
+            var spy = sinon.spy(instance.dialog.firstChild, 'focus');
+
+            instance.focus();
+            expect(spy.calledOnce).to.be.true;
+        });
     });
 
     it('should export RModal constructor', function() {
