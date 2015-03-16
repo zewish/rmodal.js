@@ -132,17 +132,10 @@
     };
 
     RModal.prototype.element = function(selector) {
-        if (!is(selector, 'array')) {
-            return this.dialog.querySelector(selector);
+        if (is(selector, 'array')) {
+            selector = selector.join(',');
         }
-
-        for (var i = 0; i < selector.length; i++) {
-            var item = this.dialog.querySelector(selector[i]);
-            if (item) {
-                return item;
-            }
-        }
-        return null;
+        return this.dialog.querySelectorAll(selector)[0];
     };
 
     RModal.prototype.focus = function(element) {

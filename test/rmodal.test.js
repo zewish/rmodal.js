@@ -421,56 +421,37 @@ describe('RModal', function() {
     });
 
     describe('element()', function() {
-        it('should call "this.dialog.querySelector()" with "selector" as a param', function() {
+        it('should call "this.dialog.querySelectorAll()" with selector as a param', function() {
             var instance = create();
-            var spy = sinon.spy(instance.dialog, 'querySelector');
+            var spy = sinon.spy(instance.dialog, 'querySelectorAll');
 
             instance.element('element-selector1');
             expect(spy.withArgs('element-selector1').calledOnce).to.be.true;
-            instance.dialog.querySelector.restore();
+            instance.dialog.querySelectorAll.restore();
         });
 
-        it('should return result of "this.dialog.querySelector"', function() {
+        it('should return first item of "this.dialog.querySelectorAll()"', function() {
             var instance = create();
-            var stub = sinon.stub(instance.dialog, 'querySelector')
+            var stub = sinon.stub(instance.dialog, 'querySelectorAll')
                 .withArgs('element-selector2')
                 .onCall(0)
-                .returns('element1');
+                .returns(['element1']);
 
             var result = instance.element('element-selector2');
             expect(result).to.be.equal('element1');
         });
 
-        it('should return first non-null result of "this.dialog.querySelector"', function() {
+        it('should return undefined', function() {
             var instance = create();
-            var stub = sinon.stub(instance.dialog, 'querySelector')
-                .withArgs('element-selector3')
-                .returns(null)
-
-                .withArgs('element-selector4')
-                .returns('element2');
-
-            var result = instance.element([
-                'element-selector3'
-                , 'element-selector4'
-            ]);
-            expect(result).to.be.equal('element2');
-        });
-
-        it('should return null', function() {
-            var instance = create();
-            var stub = sinon.stub(instance.dialog, 'querySelector')
-                .withArgs('element-selector5')
-                .returns(null)
-
-                .withArgs('element-selector6')
-                .returns(null);
+            var stub = sinon.stub(instance.dialog, 'querySelectorAll')
+                .withArgs('element-selector5,element-selector6')
+                .returns([]);
 
             var result = instance.element([
                 'element-selector5'
                 , 'element-selector6'
             ]);
-            expect(result).to.be.equal(null);
+            expect(result).to.be.undefined;
         });
     });
 
