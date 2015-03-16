@@ -73,7 +73,7 @@
 
         if (this.options.focus) {
             this.focusOutElement = document.activeElement;
-            this.focus(this.element(this.options.focus));
+            this.focus();
         }
 
         if (is(this.options.afterOpen, 'function')) {
@@ -135,11 +135,17 @@
         if (is(selector, 'array')) {
             selector = selector.join(',');
         }
-        return this.dialog.querySelectorAll(selector)[0];
+
+        try {
+            return this.dialog.querySelectorAll(selector)[0];
+        }
+        catch(ex) {
+            return undefined;
+        }
     };
 
     RModal.prototype.focus = function(element) {
-        element = element || this.dialog.firstChild;
+        element = element || this.element(this.options.focus) || this.dialog.firstChild;
         if (element && is(element.focus, 'function')) {
             element.focus();
         }

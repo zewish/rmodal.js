@@ -215,36 +215,28 @@ describe('RModal', function() {
             expect(instance.focusOutElement).to.be.eql(expected);
         });
 
-        it('should call "this.focus()" with "this.element(this.options.focus)" as param'
+        it('should call "this.focus()"'
             , function() {
                 var instance = create();
-                var stub = sinon.stub(RModal.prototype, 'element')
-                    .withArgs(instance.options.focus)
-                    .onCall(0)
-                    .returns('element_found');
                 var spy = sinon.spy(RModal.prototype, 'focus');
 
                 instance._doOpen();
-                expect(spy.withArgs('element_found').calledOnce).to.be.true;
+                expect(spy.calledOnce).to.be.true;
 
-                RModal.prototype.element.restore();
                 RModal.prototype.focus.restore();
             }
         );
 
-        it('should not call "this.focus()" with "this.element(this.options.focus)" as param'
+        it('should not call "this.focus()"'
             , function() {
                 var instance = create({
                     focus: false
                 });
-                var spyElement = sinon.spy(RModal.prototype, 'element');
-                var spyFocus = sinon.spy(RModal.prototype, 'focus');
+                var spy = sinon.spy(RModal.prototype, 'focus');
 
                 instance._doOpen();
-                expect(spyElement.calledOnce).to.be.false;
-                expect(spyFocus.calledOnce).to.be.false;
+                expect(spy.calledOnce).to.be.false;
 
-                RModal.prototype.element.restore();
                 RModal.prototype.focus.restore();
             }
         );
@@ -456,6 +448,14 @@ describe('RModal', function() {
     });
 
     describe('focus()', function() {
+        it ('should call "this.element(this.options.focus)"', function() {
+            var spy = sinon.spy(RModal.prototype, 'element');
+            var instance = create();
+
+            instance.focus();
+            expect(spy.withArgs(instance.options.focus).calledOnce).to.be.true;
+        });
+
         it('should call "element.focus()"', function() {
             var spy = sinon.spy();
             var instance = create();
@@ -467,7 +467,9 @@ describe('RModal', function() {
         });
 
         it('should call "this.dialog.firstChild.focus()"', function() {
-            var instance = create();
+            var instance = create({
+                focus: []
+            });
 
             elDialog.innerHTML = '<input type="text" />';
             var spy = sinon.spy(instance.dialog.firstChild, 'focus');
