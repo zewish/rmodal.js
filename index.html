@@ -36,7 +36,11 @@
                 // , dialogClass: 'modal-dialog modal-dialog-lg'
                 // , dialogOpenClass: 'animated fadeIn'
                 // , dialogCloseClass: 'animated fadeOut'
-                // , focus: ['input.form-control', 'textarea', 'button.btn-primary']
+
+                // , focus: true
+                // , focusElements: ['input.form-control', 'textarea', 'button.btn-primary']
+
+                // , escapeClose: true
             });
 
             window.addEventListener('resize', function() {
@@ -44,9 +48,7 @@
             }, false);
 
             document.addEventListener('keydown', function(ev) {
-                if (ev.which == 27) {
-                    modal.close();
-                }
+                modal.keydown(ev);
             }, false);
 
             document.getElementById('showModal').addEventListener("click", function(ev) {
@@ -59,6 +61,7 @@
     </script>
 </head>
 <body>
+
     <div id="modal" class="modal">
         <div class="modal-dialog animated">
             <div class="modal-content">
@@ -93,7 +96,7 @@
                     <li>A simple modal dialog</li>
                     <li>Plain JavaScript only - no dependencies</li>
                     <li>IE9+ supported</li>
-                    <li>Less than 1KB when gzipped and minified</li>
+                    <li>Less than 1.3KB when gzipped and minified</li>
                     <li>Animate.css friendly</li>
                     <li>Fully unit tested</li>
                 </ul>

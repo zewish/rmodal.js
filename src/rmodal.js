@@ -27,7 +27,7 @@
     }
 
     function RModal(element, options) {
-        var self = this;
+        this.opened = false;
 
         this.options = options || {};
         this.options.bodyClass = this.options.bodyClass || 'modal-open';
@@ -35,8 +35,18 @@
         this.options.dialogOpenClass = this.options.dialogOpenClass || 'bounceInDown';
         this.options.dialogCloseClass = this.options.dialogCloseClass || 'bounceOutUp';
 
+        if (this.options.escapeClose === undefined) {
+            this.options.escapeClose = true;
+        }
+
+        this.options.focusElements = this.options.elements || [
+            'a[href]', 'area[href]', 'input:not([disabled]):not([type=hidden])'
+            , 'button:not([disabled])', 'select:not([disabled])'
+            , 'textarea:not([disabled])', 'iframe', 'object', 'embed'
+            , '*[tabindex]', '*[contenteditable]'
+        ];
         if (this.options.focus === undefined) {
-            this.options.focus = ['input', 'select', 'textarea', 'button'];
+            this.options.focus = true;
         }
         this.focusOutElement = null;
 
@@ -79,6 +89,7 @@
         if (is(this.options.afterOpen, 'function')) {
             this.options.afterOpen();
         }
+        this.opened = true;
     };
 
     RModal.prototype.close = function(ev) {
@@ -107,6 +118,7 @@
             this.options.afterClose();
         }
 
+        this.opened = false;
         setTimeout(function() {
             self.overlay.style.display = 'none';
         }, 500);
@@ -131,23 +143,57 @@
         this.overlay.style.height = overlayHeight + 'px';
     };
 
-    RModal.prototype.element = function(selector) {
-        if (is(selector, 'array')) {
-            selector = selector.join(',');
-        }
+    RModal.prototype.elements = function(selector, fallback) {
+        fallback = fallback || (window.navigator.appVersion.indexOf('MSIE 9.0') > -1);
+        return [].filter.call(this._elementsAll(selector), function(element) {
+            if (fallback) {
+                var style = window.getComputedStyle(element);
+                return (style.display !== 'none' && style.visibility !== 'hidden');
+            }
+            return (element.offsetParent !== null);
+        });
+    };
 
-        try {
-            return this.dialog.querySelectorAll(selector)[0];
+    RModal.prototype._elementsAll = function(selector) {
+        if (is(selector, 'array')) {
+            selector = selector.join(',') || null;
         }
-        catch(ex) {
-            return undefined;
-        }
+        return this.dialog.querySelectorAll(selector);
     };
 
     RModal.prototype.focus = function(element) {
-        element = element || this.element(this.options.focus) || this.dialog.firstChild;
+        element = element || this.elements(this.options.focusElements)[0] || this.dialog.firstChild;
         if (element && is(element.focus, 'function')) {
             element.focus();
+        }
+    };
+
+    RModal.prototype.keydown = function(ev) {
+        if (this.options.escapeClose && ev.which == 27) {
+            this.close();
+        }
+
+        function stopEvent() {
+            ev.preventDefault();
+            ev.stopPropagation();
+        }
+
+        if (this.opened && ev.which == 9 && this.dialog.contains(ev.target)) {
+            var elements = this.elements(this.options.focusElements)
+                , first = elements[0]
+                , last = elements[elements.length - 1];
+
+            if (first == last) {
+                stopEvent();
+            }
+            else if (ev.target == first && ev.shiftKey) {
+                stopEvent();
+                last.focus();
+            }
+            else if (ev.target == last && !ev.shiftKey) {
+                stopEvent();
+                first.focus();
+            }
         }
     };
 

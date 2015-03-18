@@ -54,7 +54,16 @@ describe('RModal', function() {
             expect(instance.options.dialogClass).to.equal('modal-dialog');
             expect(instance.options.dialogOpenClass).to.equal('bounceInDown');
             expect(instance.options.dialogCloseClass).to.equal('bounceOutUp');
-            expect(instance.options.focus).to.eql(['input', 'select', 'textarea', 'button']);
+
+            expect(instance.options.focus).to.be.true;
+            expect(instance.options.focusElements).to.eql([
+                'a[href]', 'area[href]', 'input:not([disabled]):not([type=hidden])'
+                , 'button:not([disabled])', 'select:not([disabled])'
+                , 'textarea:not([disabled])', 'iframe', 'object', 'embed'
+                , '*[tabindex]', '*[contenteditable]'
+            ]);
+
+            expect(instance.options.escapeClose).to.be.true;
         });
 
         it('should set "this.options" properties when provided', function() {
@@ -63,7 +72,11 @@ describe('RModal', function() {
                 , dialogClass: 'custom-dialog-class'
                 , dialogOpenClass: 'custom-dialog-open-class'
                 , dialogCloseClass: 'custom-dialog-close-class'
-                , focus: 'some-other-focus-element'
+
+                , focus: true
+                , focusElements: ['my', 'custom', 'elements']
+
+                , escapeClose: false
             };
             var instance = create(opts);
 
@@ -71,7 +84,11 @@ describe('RModal', function() {
             expect(instance.options.dialogClass).to.equal(opts.dialogClass);
             expect(instance.options.dialogOpenClass).to.equal(opts.dialogOpenClass);
             expect(instance.options.dialogCloseClass).to.equal(opts.dialogCloseClass);
+
             expect(instance.options.focus).to.equal(opts.focus);
+            expect(instance.options.focusElements).to.equal(opts.focusElements);
+
+            expect(instance.options.escapeClose).to.be.equal(opts.escapeClose);
         });
 
         it('should set "this.focusOutElement" to null', function() {
@@ -412,57 +429,107 @@ describe('RModal', function() {
         );
     });
 
-    describe('element()', function() {
-        it('should call "this.dialog.querySelectorAll()" with selector as a param', function() {
+    describe('elements()', function() {
+        it('should call "this._elementsAll" passing the "selector" param', function () {
+            var spy = sinon.spy(RModal.prototype, '_elementsAll');
+            var instance = create();
+
+            instance.elements('selector0');
+            expect(
+                spy.withArgs('selector0').calledOnce
+            ).to.be.true;
+
+            RModal.prototype._elementsAll.restore();
+        });
+
+        it('should filter and return only visible elements', function() {
+            elDialog.style.position = 'relative';
+            elDialog.innerHTML =
+                '<input type="hidden" alt="invisible" />'
+                + '<input type="text" value="I am invisible" style="display: none;" />'
+                + '<input type="text" value="I am visible" />';
+
+            var instance = create();
+
+            var elems = instance.elements(instance.options.focusElements);
+            expect(elems[0]).to.eql(elDialog.children[2]);
+            expect(elems.length).to.be.equal(1);
+        });
+
+        it('should filter and return only visible elements (IE9)', function() {
+            elDialog.style.position = 'relative';
+            elDialog.innerHTML =
+                '<input type="hidden" alt="invisible" />'
+                + '<input type="text" value="I am invisible" style="display: none;" />'
+                + '<input type="text" value="I am visible" />';
+
+            var instance = create();
+            var elems = instance.elements(instance.options.focusElements, true);
+            expect(elems[0]).to.eql(elDialog.children[2]);
+            expect(elems.length).to.be.equal(1);
+        });
+    });
+
+    describe('_elementsAll()', function() {
+        it('should call "this.dialog.querySelectorAll()" with joined "selector" param', function() {
             var instance = create();
             var spy = sinon.spy(instance.dialog, 'querySelectorAll');
 
-            instance.element('element-selector1');
-            expect(spy.withArgs('element-selector1').calledOnce).to.be.true;
+            instance._elementsAll([
+                'selector1'
+                , 'selector2'
+                , 'selector3'
+            ]);
+            expect(
+                spy.withArgs('selector1,selector2,selector3').calledOnce
+            ).to.be.true;
+
             instance.dialog.querySelectorAll.restore();
         });
 
-        it('should return first item of "this.dialog.querySelectorAll()"', function() {
+        it('should call "this.dialog.querySelectorAll()" with null as a param', function() {
             var instance = create();
-            var stub = sinon.stub(instance.dialog, 'querySelectorAll')
-                .withArgs('element-selector2')
-                .onCall(0)
-                .returns(['element1']);
+            var spy = sinon.spy(instance.dialog, 'querySelectorAll');
 
-            var result = instance.element('element-selector2');
-            expect(result).to.be.equal('element1');
+            instance._elementsAll([]);
+            expect(
+                spy.withArgs(null).calledOnce
+            ).to.be.true;
+
+            instance.dialog.querySelectorAll.restore();
         });
 
-        it('should return undefined', function() {
+        it('should call "this.dialog.querySelectorAll()" with the "selector" param', function() {
             var instance = create();
-            var stub = sinon.stub(instance.dialog, 'querySelectorAll')
-                .withArgs('element-selector5,element-selector6')
-                .returns([]);
+            var spy = sinon.spy(instance.dialog, 'querySelectorAll');
 
-            var result = instance.element([
-                'element-selector5'
-                , 'element-selector6'
-            ]);
-            expect(result).to.be.undefined;
+            instance._elementsAll('selector1');
+            expect(
+                spy.withArgs('selector1').calledOnce
+            ).to.be.true;
+
+            instance.dialog.querySelectorAll.restore();
         });
     });
 
     describe('focus()', function() {
-        it ('should call "this.element(this.options.focus)"', function() {
-            var spy = sinon.spy(RModal.prototype, 'element');
+        it ('should call "this.element(this.options.focusElements)"', function() {
+            var spy = sinon.spy(RModal.prototype, 'elements');
             var instance = create();
 
             instance.focus();
-            expect(spy.withArgs(instance.options.focus).calledOnce).to.be.true;
+            expect(spy.withArgs(instance.options.focusElements).calledOnce).to.be.true;
+            RModal.prototype.elements.restore();
         });
 
         it('should call "element.focus()"', function() {
-            var spy = sinon.spy();
+            elDialog.innerHTML = '<input type="text" class="test" />';
+            var el = elDialog.querySelector('input.test');
+
+            var spy = sinon.spy(el, 'focus');
             var instance = create();
 
-            instance.focus({
-                focus: spy
-            });
+            instance.focus(el);
             expect(spy.calledOnce).to.be.true;
         });
 
@@ -476,6 +543,167 @@ describe('RModal', function() {
 
             instance.focus();
             expect(spy.calledOnce).to.be.true;
+        });
+    });
+
+    describe('keydown()', function() {
+        var stubDialogContains;
+        beforeEach(function() {
+            stubDialogContains = sinon.stub(elDialog, 'contains').returns(true);
+        });
+
+        afterEach(function() {
+            elDialog.contains.restore();
+        })
+
+        it('should call "this.close()" on escape', function() {
+            var spy = sinon.spy(RModal.prototype, 'close');
+            var instance = create();
+            instance.keydown({
+                which: 27
+            });
+
+            expect(spy.calledOnce).to.be.true;
+            RModal.prototype.close.restore();
+        });
+
+        it('should not call "this.close()" on escape', function() {
+            var spy = sinon.spy(RModal.prototype, 'close');
+            var instance = create({
+                escapeClose: false
+            });
+            instance.keydown({
+                which: 27
+            });
+
+            expect(spy.calledOnce).to.be.false;
+            RModal.prototype.close.restore();
+        });
+
+        it('should call "this.dialog.contains()"', function() {
+            var instance = create();
+            instance.opened = true;
+
+            instance.keydown({
+                which: 9
+                , preventDefault: function() {}
+                , stopPropagation: function() {}
+            });
+            expect(
+                stubDialogContains.calledOnce
+            ).to.be.true;
+        });
+
+        it('should call "this.elements(this.option.focusElements)" on tab', function() {
+            var spy = sinon.spy(RModal.prototype, 'elements');
+            var instance = create();
+            instance.opened = true;
+
+            instance.keydown({
+                which: 9
+                , preventDefault: function() {}
+                , stopPropagation: function() {}
+            });
+            expect(
+                spy.withArgs(instance.options.focusElements).calledOnce
+            ).to.be.true;
+            RModal.prototype.elements.restore();
+        });
+
+        it('should call "stopEvent()"', function() {
+            var stub = sinon.stub(RModal.prototype, 'elements')
+            .returns([ '1', '1' ]);
+
+            var instance = create();
+            instance.opened = true;
+
+            var ev = {
+                which: 9
+                , preventDefault: sinon.spy()
+                , stopPropagation: sinon.spy()
+            };
+            instance.keydown(ev);
+
+            expect(ev.preventDefault.calledOnce).to.be.true;
+            expect(ev.stopPropagation.calledOnce).to.be.true;
+
+            RModal.prototype.elements.restore();
+        });
+
+        it('should call "stopEvent()" and "last.focus()"', function() {
+            var spy = sinon.spy();
+            var stub = sinon.stub(RModal.prototype, 'elements')
+            .returns([
+                'first'
+                , { focus: spy }
+            ]);
+
+            var instance = create();
+            instance.opened = true;
+
+            var ev = {
+                which: 9
+                , shiftKey: true
+                , target: 'first'
+                , preventDefault: sinon.spy()
+                , stopPropagation: sinon.spy()
+            };
+            instance.keydown(ev);
+
+            expect(ev.preventDefault.calledOnce).to.be.true;
+            expect(ev.stopPropagation.calledOnce).to.be.true;
+            expect(spy.calledOnce).to.be.true;
+
+            RModal.prototype.elements.restore();
+        });
+
+        it('should call "stopEvent()" and "first.focus()"', function() {
+            var spy = sinon.spy();
+            var stub = sinon.stub(RModal.prototype, 'elements')
+            .returns([
+                { focus: spy }
+                , 'last'
+            ]);
+
+            var instance = create();
+            instance.opened = true;
+
+            var ev = {
+                which: 9
+                , shiftKey: false
+                , target: 'last'
+                , preventDefault: sinon.spy()
+                , stopPropagation: sinon.spy()
+            };
+            instance.keydown(ev);
+
+            expect(ev.preventDefault.calledOnce).to.be.true;
+            expect(ev.stopPropagation.calledOnce).to.be.true;
+            expect(spy.calledOnce).to.be.true;
+
+            RModal.prototype.elements.restore();
+        });
+
+        it('should not call "stopEvent()"', function() {
+            var stub = sinon.stub(RModal.prototype, 'elements')
+            .returns([
+                1, 2, 3
+            ]);
+
+            var instance = create();
+            instance.opened = true;
+
+            var ev = {
+                which: 9
+                , preventDefault: sinon.spy()
+                , stopPropagation: sinon.spy()
+            };
+            instance.keydown(ev);
+
+            expect(ev.preventDefault.calledOnce).to.be.false;
+            expect(ev.stopPropagation.calledOnce).to.be.false;
+
+            RModal.prototype.elements.restore();
         });
     });
 
