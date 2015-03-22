@@ -197,5 +197,10 @@
         }
     };
 
-    window.RModal = RModal;
-})(this, this.document);
+    if (typeof module === 'object' && typeof module.exports === 'object') {
+        module.exports = RModal;
+    }
+    else {
+        window.RModal = RModal;
+    }
+})(window, document);

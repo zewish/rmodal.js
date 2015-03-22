@@ -9,30 +9,28 @@ module.exports = function(config) {
         ]
 
         , files: [
-            'src/*.js',
-            'test/*.js'
+            'src/*.js'
+            , 'test/*.js'
         ]
 
-        , exclude: [
-        ]
+        , exclude: []
 
         , preprocessors: {
-            'src/*.js': 'coverage'
+            'src/*.js': ['coverage']
         }
 
         , reporters: [
-            'progress'
-            , 'coverage'
+            'coverage'
+            , 'progress'
         ]
 
         , coverageReporter: {
-            type : 'html',
-            dir : 'build/coverage'
+            type: 'html'
+            , dir : 'build/coverage'
         }
 
-        , browsers: [
-            'PhantomJS'
-        ]
+        , browsers: ['PhantomJS']
+        , captureTimeout: 60000
 
         , port: 9876
         , autoWatch: true
