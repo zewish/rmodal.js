@@ -50,7 +50,7 @@
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
         <header class="inner">
-          <a id="forkme_banner" href="https://github.com/zewish/rmodal.js">View on GitHub</a>
+          <a id="forkme_banner" href="https://github.com/zewish/rmodal.js">Fork me GitHub</a>
 
           <h1 id="project_title">rmodal.js</h1>
           <h2 id="project_tagline">A simple modal dialog with no external dependencies</h2>
@@ -81,8 +81,21 @@
           <button>See demo!</button>
         </a>
 
-        <br/><br/>
-        <h3>Usage?</h3>
+        <br /><br />
+        <h3>Installation</h3>
+
+        <h6>bower:</h6>
+        <p><code>
+          $ bower install rmodal --save
+        </code></p>
+
+        <h6>npm/browserify:</h6>
+        <p><code>
+          $ npm install rmodal --save
+        </code></p>
+
+        <br/>
+        <h3>Usage</h3>
 
 <div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html&gt;</span>
@@ -103,7 +116,7 @@
         <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">modal</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">RModal</span><span class="p">(</span>
                 <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'modal'</span><span class="p">)</span>
-                <span class="p">,</span> <span class="nx">options</span> <span class="c1">// See "Options?" below details</span>
+                <span class="p">,</span> <span class="nx">options</span> <span class="c1">// See "Options" below details</span>
             <span class="p">);</span>
 
             <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'keydown'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ev</span><span class="p">)</span> <span class="p">{</span>
@@ -150,7 +163,7 @@
 </pre></div>
 
         <br />
-        <h3>Options?</h3>
+        <h3>Options</h3>
 <div class="highlight">
 <pre>
 <span class="p">{</span>
