@@ -79,7 +79,6 @@
         addClass(this.dialog, this.options.dialogOpenClass);
 
         this.overlay.style.display = 'block';
-        this.resize();
 
         if (this.options.focus) {
             this.focusOutElement = document.activeElement;
@@ -129,18 +128,6 @@
             return this.dialog.innerHTML;
         }
         this.dialog.innerHTML = content;
-    };
-
-    RModal.prototype.resize = function() {
-        var overlayWidth = window.innerWidth;
-        var overlayHeight = window.innerHeight;
-        if (document.body.clientHeight > window.innerHeight) {
-            overlayWidth = document.body.clientWidth;
-            overlayHeight = document.body.clientHeight;
-        }
-
-        this.overlay.style.width = overlayWidth + 'px';
-        this.overlay.style.height = overlayHeight + 'px';
     };
 
     RModal.prototype.elements = function(selector, fallback) {

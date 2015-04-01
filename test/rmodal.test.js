@@ -215,15 +215,6 @@ describe('RModal', function() {
             expect(instance.overlay.style.display).to.be.equal('block');
         });
 
-        it('should call "this.resize()"', function() {
-            var stub = sinon.stub(RModal.prototype, 'resize');
-            var instance = create();
-
-            instance._doOpen();
-            expect(stub.calledOnce).to.be.true;
-            RModal.prototype.resize.restore();
-        });
-
         it('should set "this.focusOutElement" to "document.activeElement"', function() {
             var expected = document.activeElement;
             var instance = create();
@@ -393,40 +384,6 @@ describe('RModal', function() {
 
             expect(elDialog.innerHTML).to.be.equal('testing2')
         });
-    });
-
-    describe('resize()', function() {
-        it('should set "this.overlay.style[width,height]" to "window[innerWidth,innerHeight]"'
-            , function() {
-                var instance = create();
-
-                elBody.clientHeight = 312;
-                elBody.clientWidth = 422;
-
-                window.innerHeight = 531;
-                window.innerWidth = 542;
-
-                instance.resize();
-
-                expect(instance.overlay.style.width).to.be.equal(window.innerWidth + 'px');
-                expect(instance.overlay.style.height).to.be.equal(window.innerHeight + 'px');
-            }
-        );
-
-        it('should set "this.overlay.style[width,height]" to "body[clientWidth,clientHeight]"'
-            , function() {
-                var instance = create();
-
-                elDialog.innerHTML = '<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>';
-                window.innerHeight = 123;
-                window.innerWidth = 182;
-
-                instance.resize();
-
-                expect(instance.overlay.style.width).to.be.equal(elBody.clientWidth + 'px');
-                expect(instance.overlay.style.height).to.be.equal(elBody.clientHeight + 'px');
-            }
-        );
     });
 
     describe('elements()', function() {
