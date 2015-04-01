@@ -12,6 +12,10 @@
 
     <style type="text/css">
       #demo {
+        text-decoration: none;
+      }
+
+      #demo button {
         background: #626262 -o-linear-gradient(bottom, #626262 0%, #404040 100%);
         background: #626262 -moz-linear-gradient(bottom, #626262 0%, #404040 100%);
         background: #626262 -webkit-linear-gradient(bottom, #626262 0%, #404040 100%);
@@ -25,6 +29,19 @@
         font-weight: bold;
         color: #fff;
         cursor: pointer;
+
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+      }
+      #demo:hover button {
+        background: #047DD8 -o-linear-gradient(bottom, #047DD8 0%, #0C6EB9 100%);
+        background: #047DD8 -moz-linear-gradient(bottom, #047DD8 0%, #0C6EB9 100%);
+        background: #047DD8 -webkit-linear-gradient(bottom, #047DD8 0%, #0C6EB9 100%);
+        background: #047DD8 -ms-linear-gradient(bottom, #047DD8 0%, #0C6EB9 100%);
+        background: #047DD8 linear-gradient(to bottom, #047DD8 0%, #0C6EB9 100%);
+        border-color: #0A5D9C;
+        text-decoration: none;
       }
     </style>
   </head>
@@ -60,8 +77,8 @@
           <li>Fully unit tested</li>
         </ul>
 
-        <a href="http://plnkr.co/edit/XXFKwHHcZD4Ecjh8twaW?p=preview" target="_blank">
-          <button id="demo">See demo!</button>
+        <a id="demo" href="http://plnkr.co/edit/XXFKwHHcZD4Ecjh8twaW?p=preview" target="_blank">
+          <button>See demo!</button>
         </a>
 
         <br/><br/>
