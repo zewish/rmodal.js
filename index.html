@@ -9,10 +9,27 @@
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
     <title>rmodal.js</title>
+
+    <style type="text/css">
+      #demo {
+        background: #626262 -o-linear-gradient(bottom, #626262 0%, #404040 100%);
+        background: #626262 -moz-linear-gradient(bottom, #626262 0%, #404040 100%);
+        background: #626262 -webkit-linear-gradient(bottom, #626262 0%, #404040 100%);
+        background: #626262 -ms-linear-gradient(bottom, #626262 0%, #404040 100%);
+        background: #626262 linear-gradient(to bottom, #626262 0%, #404040 100%);
+
+        border: 2px solid #444;
+        line-height: 1.375;
+        padding: 15px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        cursor: pointer;
+      }
+    </style>
   </head>
 
   <body>
-
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
         <header class="inner">
@@ -31,30 +48,153 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>
-<a id="rmodaljs" class="anchor" href="#rmodaljs" aria-hidden="true"><span class="octicon octicon-link"></span></a>rmodal.js.</h3>
+        <h3>Wut?</h3>
 
-<p><em>A simple modal dialog with no external dependencies</em></p>
+        <p><em>A simple modal dialog with no external dependencies</em></p>
 
-<ul>
-<li>Plain JavaScript only - no dependencies</li>
-<li>IE9+ supported</li>
-<li>Less than 1.3KB when gzipped and minified</li>
-<li>Animate.css friendly</li>
-<li>Fully unit tested</li>
-</ul>
+        <ul>
+          <li>Plain JavaScript only - no dependencies</li>
+          <li>IE9+ supported</li>
+          <li>Less than 1.3KB when gzipped and minified</li>
+          <li>Animate.css friendly</li>
+          <li>Fully unit tested</li>
+        </ul>
+
+        <a href="http://plnkr.co/edit/XXFKwHHcZD4Ecjh8twaW?p=preview" target="_blank">
+          <button id="demo">See demo!</button>
+        </a>
+
+        <h3>Usage?</h3>
+
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"IE=edge"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;title&gt;</span>rmodal.js<span class="nt">&lt;/title&gt;</span>
+
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"css/bootstrap.min.css"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"css/animate.css"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"src/rmodal.css"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"src/rmodal.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">modal</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">RModal</span><span class="p">(</span>
+                <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'modal'</span><span class="p">)</span>
+                <span class="p">,</span> <span class="nx">options</span> <span class="c1">// See "Options?" below details</span>
+            <span class="p">);</span>
+
+            <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'keydown'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ev</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">modal</span><span class="p">.</span><span class="nx">keydown</span><span class="p">(</span><span class="nx">ev</span><span class="p">);</span>
+            <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+
+            <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'showModal'</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ev</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">ev</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+                <span class="nx">modal</span><span class="p">.</span><span class="nx">open</span><span class="p">();</span>
+            <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+
+            <span class="nb">window</span><span class="p">.</span><span class="nx">modal</span> <span class="o">=</span> <span class="nx">modal</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"modal"</span> <span class="na">class=</span><span class="s">"modal"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"modal-dialog animated"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"modal-content"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;form</span> <span class="na">class=</span><span class="s">"form-horizontal"</span> <span class="na">method=</span><span class="s">"get"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"modal-header"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;strong&gt;</span>Hello Dialog<span class="nt">&lt;/strong&gt;</span>
+                    <span class="nt">&lt;/div&gt;</span>
+
+                    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"modal-body"</span><span class="nt">&gt;</span>
+                        Test Content
+                    <span class="nt">&lt;/div&gt;</span>
+
+                    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"modal-footer"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn btn-primary"</span>
+                          <span class="na">type=</span><span class="s">"submit"</span> <span class="na">onclick=</span><span class="s">"modal.close();"</span><span class="nt">&gt;</span>
+                            Close
+                        <span class="nt">&lt;/button&gt;</span>
+                    <span class="nt">&lt;/div&gt;</span>
+                <span class="nt">&lt;/form&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">id=</span><span class="s">"showModal"</span> <span class="na">class=</span><span class="s">"btn btn-success"</span><span class="nt">&gt;</span>Show modal<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+        <br />
+        <h3>Options?</h3>
+<div class="highlight">
+<pre>
+<span class="p">{</span>
+      <span class="nx">content</span><span class="o">:</span> <span class="s1">'This may be used to override all of the dialog inner html'</span>
+
+      <span class="cm">/**</span>
+  <span class="cm">     * Callbacks</span>
+  <span class="cm">     */</span>
+      <span class="nx">beforeOpen</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'I will execute right before the dialog is shown'</span><span class="p">);</span>
+          <span class="nx">next</span><span class="p">();</span>
+      <span class="p">}</span>
+      <span class="p">,</span> <span class="nx">afterOpen</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'I will execute just after the dialog is shown'</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="p">,</span> <span class="nx">beforeClose</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'I will execute right before the dialog is closed'</span><span class="p">);</span>
+          <span class="nx">next</span><span class="p">();</span>
+      <span class="p">}</span>
+      <span class="p">,</span> <span class="nx">afterClose</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'I will execute just after the dialog is closed'</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="cm">/**</span>
+  <span class="cm">     * Classes</span>
+  <span class="cm">     */</span>
+
+      <span class="c1">// Added to body element clases while the modal is opened:</span>
+      <span class="p">,</span> <span class="nx">bodyClass</span><span class="o">:</span> <span class="s1">'modal-open'</span>
+
+      <span class="c1">// Always added to dialog element classes:</span>
+      <span class="p">,</span> <span class="nx">dialogClass</span><span class="o">:</span> <span class="s1">'modal-dialog modal-dialog-lg'</span>
+
+      <span class="c1">// Added to dialog element classes after it is opened:</span>
+      <span class="p">,</span> <span class="nx">dialogOpenClass</span><span class="o">:</span> <span class="s1">'animated fadeIn'</span>
+
+      <span class="c1">// Added to dialog element classes before it is closed:</span>
+      <span class="p">,</span> <span class="nx">dialogCloseClass</span><span class="o">:</span> <span class="s1">'animated fadeOut'</span>
+
+      <span class="cm">/**</span>
+  <span class="cm">     * Focus</span>
+  <span class="cm">     */</span>
+
+      <span class="c1">// Set this to "false" to disable focus capture (tab/shit+tab):</span>
+      <span class="p">,</span> <span class="nx">focus</span><span class="o">:</span> <span class="kc">true</span>
+
+      <span class="c1">// Set this to "false" to disable closing when escape key pressed:</span>
+      <span class="p">,</span> <span class="nx">escapeClose</span><span class="o">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre>
+</div>
       </section>
     </div>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">rmodal.js maintained by <a href="https://github.com/zewish">zewish</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+        <p class="copyright">Created and maintained by <a href="http://www.dotfusion.net/">Iskren Slavov</a></p>
       </footer>
     </div>
 
-    
+    <script type="text/javascript" src="javascripts/main.js"></script>
 
   </body>
 </html>
