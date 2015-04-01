@@ -1,6 +1,6 @@
 {
   "name": "rmodal",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "A simple modal dialog with no external dependencies. IE9+ supported.",
   "main": "angular-messenger.js",
   "repository": {
@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/zewish/rmodal.js/issues"
   },
-  "homepage": "https://github.com/zewish/rmodal.js",
+  "homepage": "http://zewish.github.io/rmodal.js/",
   "devDependencies": {
     "chai": "^2.1.1",
     "gulp": "^3.8.10",
