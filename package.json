@@ -2,7 +2,7 @@
   "name": "rmodal",
   "version": "1.0.12",
   "description": "A simple modal dialog with no external dependencies. IE9+ supported.",
-  "main": "angular-messenger.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/zewish/rmodal.js.git"
