@@ -58,7 +58,9 @@
         }
     }
 
-    RModal.prototype.open = function(content) {
+    var proto = RModal.prototype;
+
+    proto.open = function(content) {
         var self = this;
         this.content(content);
 
@@ -70,7 +72,7 @@
         this._doOpen();
     };
 
-    RModal.prototype._doOpen = function() {
+    proto._doOpen = function() {
         var self = this;
 
         addClass(document.body, this.options.bodyClass);
@@ -91,7 +93,7 @@
         this.opened = true;
     };
 
-    RModal.prototype.close = function(ev) {
+    proto.close = function(ev) {
         var self = this;
         if (is(this.options.beforeClose, 'function')) {
             return this.options.beforeClose(function() {
@@ -101,7 +103,7 @@
         this._doClose();
     };
 
-    RModal.prototype._doClose = function() {
+    proto._doClose = function() {
         var self = this;
 
         removeClass(this.dialog, this.options.dialogOpenClass);
@@ -123,14 +125,14 @@
         }, 500);
     };
 
-    RModal.prototype.content = function(content) {
+    proto.content = function(content) {
         if (content === undefined) {
             return this.dialog.innerHTML;
         }
         this.dialog.innerHTML = content;
     };
 
-    RModal.prototype.elements = function(selector, fallback) {
+    proto.elements = function(selector, fallback) {
         fallback = fallback || (window.navigator.appVersion.indexOf('MSIE 9.0') > -1);
         return [].filter.call(this._elementsAll(selector), function(element) {
             if (fallback) {
@@ -141,21 +143,21 @@
         });
     };
 
-    RModal.prototype._elementsAll = function(selector) {
+    proto._elementsAll = function(selector) {
         if (is(selector, 'array')) {
             selector = selector.join(',') || null;
         }
         return this.dialog.querySelectorAll(selector);
     };
 
-    RModal.prototype.focus = function(element) {
+    proto.focus = function(element) {
         element = element || this.elements(this.options.focusElements)[0] || this.dialog.firstChild;
         if (element && is(element.focus, 'function')) {
             element.focus();
         }
     };
 
-    RModal.prototype.keydown = function(ev) {
+    proto.keydown = function(ev) {
         if (this.options.escapeClose && ev.which == 27) {
             this.close();
         }
