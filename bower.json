@@ -1,7 +1,7 @@
 {
   "name": "rmodal",
   "main": "rmodal.js",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "authors": [
     "Iskren Slavov <iskren.s@gmail.com>"
   ],
@@ -15,7 +15,8 @@
     "javascript",
     "simple",
     "plain",
-    "browser"
+    "browser",
+    "browserify"
   ],
   "dependencies": {},
   "license": "MIT",

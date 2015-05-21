@@ -1,6 +1,6 @@
 {
   "name": "rmodal",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "A simple modal dialog with no external dependencies. IE9+ supported.",
   "main": "index.js",
   "repository": {
@@ -13,7 +13,8 @@
     "javascript",
     "simple",
     "plain",
-    "browser"
+    "browser",
+    "browserify"
   ],
   "author": "Iskren Slavov <iskren.s@gmail.com>",
   "license": "MIT",
