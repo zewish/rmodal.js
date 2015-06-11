@@ -7,6 +7,7 @@ A simple modal dialog with no external dependencies
 - Less than 1.3KB when gzipped and minified
 - Animate.css friendly
 - Fully unit tested
+- Supports CommonJS, AMD or globals
 
 
 Demo

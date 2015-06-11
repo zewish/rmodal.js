@@ -186,7 +186,12 @@
         }
     };
 
-    if (typeof module === 'object' && module.exports) {
+    if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) {
+        define(function() {
+            return RModal;
+        });
+    }
+    else if (typeof module === 'object' && module.exports) {
         module.exports = RModal;
     }
     else {
