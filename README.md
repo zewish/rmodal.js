@@ -1,4 +1,9 @@
-A simple modal dialog with no external dependencies
+[![NPM version](https://img.shields.io/npm/v/rmodal.svg?style=flat-square)](https://www.npmjs.com/package/rmodal)
+[![Build Status](https://travis-ci.org/zewish/rmodal.js.svg?branch=master)](https://travis-ci.org/zewish/rmodal.js)
+[![Coverage Status](https://coveralls.io/repos/zewish/rmodal.js/badge.svg?branch=master&service=github)](https://coveralls.io/github/zewish/rmodal.js?branch=master)
+[![Downloads](https://img.shields.io/npm/dm/rmodal.svg?style=flat-square)](https://www.npmjs.com/package/rmodal)
+
+rmodal.js
 ---------------------------------------------------
 
 - A simple modal dialog

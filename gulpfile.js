@@ -31,10 +31,11 @@ gulp.task('js', function() {
 gulp.task('build', ['css', 'js']);
 
 gulp.task('test', function(done) {
-    karma.server.start({
+    var server = new karma.Server(    {
         configFile: __dirname + '/karma.conf.js',
         singleRun: true
     }, done);
+    server.start();
 });
 
 gulp.task('default', ['lint', 'test', 'build']);

@@ -21,15 +21,19 @@ module.exports = function(config) {
 
         , reporters: [
             'coverage'
+            , 'coveralls'
             , 'progress'
         ]
 
         , coverageReporter: {
-            type: 'html'
-            , dir : 'build/coverage'
+            type: 'lcov',
+            dir: 'coverage/'
         }
 
         , browsers: ['PhantomJS']
+        , phantomjsLauncher: {
+            exitOnResourceError: true
+        }
         , captureTimeout: 60000
 
         , port: 9876
