@@ -4,11 +4,12 @@
 [![Downloads](https://img.shields.io/npm/dm/rmodal.svg?style=flat-square)](https://www.npmjs.com/package/rmodal)
 
 
-![rmodal.js logo](logo.png)
+<br />
+[![rmodal.js logo](logo.png)](https://github.com/zewish/rmodal.js)
 
 
-rmodal.js - a 1.2 KB modal dialog box, with no dependencies
------------------------------------------------------------
+1.2 KB modal dialog box, with no dependencies
+---------------------------------------------
 
 - A simple and fast modal dialog
 - Plain JavaScript only - no dependencies
