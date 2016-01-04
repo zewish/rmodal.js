@@ -2,6 +2,7 @@ var gulp = require('gulp')
     , jshint = require('gulp-jshint')
     , rename = require('gulp-rename')
     , uglify = require('gulp-uglify')
+    , replace = require('gulp-replace')
     , karma = require('karma');
 
 process.chdir(__dirname);
@@ -17,14 +18,28 @@ gulp.task('css', function() {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('js', function() {
+var version = function() {
+    return replace(
+        /@@VERSION@@/g
+        , require('./package.json').version
+    );
+}
+
+gulp.task('jsmin', function() {
     return gulp.src('src/*.js')
+        .pipe(version())
         .pipe(uglify({
             mangle: true
         }))
         .pipe(rename(function(path) {
             path.basename += '.min';
         }))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('js', [ 'jsmin' ], function() {
+    return gulp.src('src/*.js')
+        .pipe(version())
         .pipe(gulp.dest('dist'));
 });
 

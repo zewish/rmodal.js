@@ -125,6 +125,13 @@ describe('RModal', function() {
             ).to.be.true;
             RModal.prototype.content.restore();
         });
+
+        it('should have versions defined in both instance and prototype', function() {
+            var instance = create();
+
+            expect(instance.version).to.be.equal('@@VERSION');
+            expect(RModal.prototype.version).to.be.equal('@@VERSION');
+        });
     });
 
     describe('open()', function() {

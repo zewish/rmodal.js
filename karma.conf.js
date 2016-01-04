@@ -21,13 +21,13 @@ module.exports = function(config) {
 
         , reporters: [
             'coverage'
-            , 'coveralls'
+            //, 'coveralls'
             , 'progress'
         ]
 
         , coverageReporter: {
-            type: 'lcov',
-            dir: 'coverage/'
+            type: 'html'
+            , dir: 'coverage/'
         }
 
         , browsers: ['PhantomJS']

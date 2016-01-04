@@ -60,8 +60,8 @@
 
     var proto = RModal.prototype;
 
-    RModal.version = '@@VERSION@@';
-    proto.version = '@@VERSION@@';
+    RModal.version = '1.0.17';
+    proto.version = '1.0.17';
 
     proto.open = function(content) {
         var self = this;
