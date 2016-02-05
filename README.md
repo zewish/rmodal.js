@@ -26,7 +26,7 @@ http://plnkr.co/edit/XXFKwHHcZD4Ecjh8twaW?p=preview
 
 Documentation
 -------------
-http://zewish.github.io/rmodal.js/
+http://rmodal.js.org/
 
 
 Installation
