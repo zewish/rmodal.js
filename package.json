@@ -1,6 +1,6 @@
 {
   "name": "rmodal",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "A simple modal dialog with no external dependencies. IE9+ supported.",
   "main": "index.js",
   "repository": {
@@ -23,24 +23,25 @@
   },
   "homepage": "http://zewish.github.io/rmodal.js/",
   "devDependencies": {
-    "chai": "^3.4.1",
-    "gulp": "^3.8.10",
+    "chai": "^3.5.0",
+    "gulp": "^3.9.1",
     "gulp-jshint": "^2.0.0",
-    "gulp-rename": "^1.2.0",
+    "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
-    "gulp-uglify": "^1.0.2",
-    "istanbul": "^0.4.1",
+    "gulp-uglify": "*",
+    "istanbul": "^0.4.2",
     "istanbul-coveralls": "^1.0.3",
-    "jshint": "^2.9.1-rc2",
-    "karma": "^0.13.16",
-    "karma-chai": "^0.1.0",
-    "karma-coverage": "^0.5.3",
+    "jshint": "^2.9.1",
+    "karma": "^0.13.22",
+    "karma-chai": "*",
+    "karma-coverage": "^0.5.5",
     "karma-coveralls": "^1.1.2",
-    "karma-mocha": "^0.2.1",
-    "karma-phantomjs-launcher": "^0.2.2",
+    "karma-mocha": "^0.2.2",
+    "karma-phantomjs-launcher": "^1.0.0",
     "karma-sinon": "^1.0.4",
-    "mocha": "^2.2.1",
-    "phantomjs": "^1.9.19",
-    "sinon": "^1.13.0"
+    "mocha": "^2.4.5",
+    "phantomjs": "^2.1.3",
+    "phantomjs-prebuilt": "^2.1.5",
+    "sinon": "^1.17.3"
   }
 }
