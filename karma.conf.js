@@ -8,17 +8,22 @@ module.exports = function(config) {
             'mocha'
             , 'chai'
             , 'sinon'
+            , 'commonjs'
         ]
 
         , files: [
-            'test/rmodal.js'
-            , 'test/rmodal.test.js'
+            'test/*.test.js'
+            , './index.js'
         ]
 
         , exclude: []
 
         , preprocessors: {
-            'test/rmodal.js': [ 'coverage' ]
+            'test/*.test.js': [ 'commonjs' ]
+            , './index.js': [
+                'coverage'
+                , 'commonjs'
+            ]
         }
 
         , reporters: [

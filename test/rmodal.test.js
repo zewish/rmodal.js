@@ -1,5 +1,7 @@
 'use strict';
 
+var RModal = require(__dirname + '/../index.js');
+
 describe('RModal', function() {
     var elBody
         , elOverlay
@@ -629,6 +631,6 @@ describe('RModal', function() {
     });
 
     it('should export RModal constructor', function() {
-        expect(window.RModal).to.be.a('function');
+        expect(RModal).to.be.a('function');
     });
 });

@@ -53,10 +53,9 @@ gulp.task('css', () => {
 gulp.task('cjs', () => {
     return bundle('cjs')
     .pipe(rename((path) => {
-        path.basename += '.cjs';
+        path.basename = 'index';
     }))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('./'));
 })
 
 gulp.task('js', [ 'cjs' ], () => {
@@ -84,13 +83,7 @@ gulp.task('build', [
     'css', 'jsmin'
 ]);
 
-gulp.task('pretest', () => {
-    return bundle('iife')
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('test'));
-});
-
-gulp.task('test', [ 'pretest' ], (done) => {
+gulp.task('test', [ 'cjs' ], (done) => {
     new karma(
         {
             configFile: `${__dirname}/karma.conf.js`
