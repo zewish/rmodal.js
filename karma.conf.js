@@ -1,5 +1,7 @@
+'use strict';
+
 module.exports = function(config) {
-    config.set({
+    let opts = {
         basePath: ''
 
         , frameworks: [
@@ -40,7 +42,7 @@ module.exports = function(config) {
         , singleRun: false
 
         , colors: true
-        , logLevel: config.LOG_DEBUG
+        , logLevel: config.LOG_INFO
 
         , client: {
             captureConsole: true
@@ -48,5 +50,12 @@ module.exports = function(config) {
                 bail: true
             }
         }
-    });
+    };
+
+    if (process.env.TRAVIS) {
+        opts.coverageReporter.type = 'lcov';
+        opts.reporters.push('coveralls');
+    }
+
+    config.set(opts);
 };
