@@ -1,14 +1,11 @@
 {
   "name": "rmodal",
   "main": "rmodal.js",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "authors": [
     "Iskren Slavov <iskren.s@gmail.com>"
   ],
   "description": "A simple modal dialog with no external dependencies. IE9+ supported.",
-  "moduleType": [
-    "globals"
-  ],
   "keywords": [
     "modal",
     "dialog",
@@ -20,7 +17,7 @@
   ],
   "dependencies": {},
   "license": "MIT",
-  "homepage": "http://zewish.github.io/rmodal.js/",
+  "homepage": "http://rmodal.js.org/",
   "ignore": [
     "**/.*",
     "node_modules",

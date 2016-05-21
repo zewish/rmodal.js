@@ -1,1 +1,1 @@
-module.exports = require('./dist/rmodal.js');
+module.exports = require('./dist/rmodal.cjs.js');

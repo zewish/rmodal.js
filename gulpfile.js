@@ -1,56 +1,106 @@
-var gulp = require('gulp')
-    , jshint = require('gulp-jshint')
+'use strict';
+
+let gulp = require('gulp')
+    , eslint = require('gulp-eslint')
     , rename = require('gulp-rename')
     , uglify = require('gulp-uglify')
     , replace = require('gulp-replace')
-    , karma = require('karma');
+    , sourcemaps = require('gulp-sourcemaps')
+    , karma = require('karma').Server
+    , rollup = require('gulp-rollup')
+    , buble = require('rollup-plugin-buble');
 
 process.chdir(__dirname);
 
-gulp.task('lint', function() {
-    return gulp.src('src/*.js')
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'));
-});
-
-gulp.task('css', function() {
-    return gulp.src('src/*.css')
-        .pipe(gulp.dest('dist'));
-});
-
-var version = function() {
-    return replace(
+let bundle = (format) => {
+    return gulp.src(
+        'src/rmodal.js'
+        , { read: false }
+    )
+    .pipe(rollup({
+        format: format
+        , moduleName: 'RModal'
+        , plugins: [ buble() ]
+        , sourceMap: true
+        , useStrict: false
+    }))
+    .pipe(replace(
         /@@VERSION@@/g
         , require('./package.json').version
-    );
+    ));
 }
 
-gulp.task('jsmin', function() {
+gulp.task('lint', () => {
     return gulp.src('src/*.js')
-        .pipe(version())
-        .pipe(uglify({
-            mangle: true
-        }))
-        .pipe(rename(function(path) {
-            path.basename += '.min';
-        }))
-        .pipe(gulp.dest('dist'));
+    .pipe(eslint({
+        'extends': 'eslint:recommended'
+        , env: {
+            browser: true
+        }
+        , parserOptions: {
+            ecmaVersion: 6
+            , sourceType: 'module'
+        }
+    }))
+    .pipe(eslint.format());
 });
 
-gulp.task('js', [ 'jsmin' ], function() {
-    return gulp.src('src/*.js')
-        .pipe(version())
-        .pipe(gulp.dest('dist'));
+gulp.task('css', () => {
+    return gulp.src('src/*.css')
+    .pipe(gulp.dest('dist'));
 });
 
-gulp.task('build', ['css', 'js']);
+gulp.task('cjs', () => {
+    return bundle('cjs')
+    .pipe(rename((path) => {
+        path.basename += '.cjs';
+    }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('dist'));
+})
 
-gulp.task('test', function(done) {
-    var server = new karma.Server(    {
-        configFile: __dirname + '/karma.conf.js',
-        singleRun: true
-    }, done);
-    server.start();
+gulp.task('js', [ 'cjs' ], () => {
+    return bundle('umd')
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', ['lint', 'test', 'build']);
+gulp.task('jsmin', [ 'js' ], () => {
+    return gulp.src('dist/rmodal.js')
+    .pipe(sourcemaps.init({
+        loadMaps: true
+    }))
+    .pipe(uglify({
+        mangle: true
+    }))
+    .pipe(rename((path) => {
+        path.basename += '.min';
+    }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('build', [
+    'css', 'jsmin'
+]);
+
+gulp.task('pretest', () => {
+    return bundle('iife')
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('test'));
+});
+
+gulp.task('test', [ 'pretest' ], (done) => {
+    new karma(
+        {
+            configFile: `${__dirname}/karma.conf.js`
+            , singleRun: true
+        }
+        , done
+    )
+    .start();
+});
+
+gulp.task('default', [
+    'lint', 'test', 'build'
+]);

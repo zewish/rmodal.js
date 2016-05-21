@@ -9,19 +9,18 @@ module.exports = function(config) {
         ]
 
         , files: [
-            'src/*.js'
-            , 'test/*.js'
+            'test/rmodal.js'
+            , 'test/rmodal.test.js'
         ]
 
         , exclude: []
 
         , preprocessors: {
-            'src/*.js': ['coverage']
+            'test/rmodal.js': [ 'coverage' ]
         }
 
         , reporters: [
             'coverage'
-            //, 'coveralls'
             , 'progress'
         ]
 
@@ -30,7 +29,7 @@ module.exports = function(config) {
             , dir: 'coverage/'
         }
 
-        , browsers: ['PhantomJS']
+        , browsers: [ 'PhantomJS' ]
         , phantomjsLauncher: {
             exitOnResourceError: true
         }
@@ -41,6 +40,13 @@ module.exports = function(config) {
         , singleRun: false
 
         , colors: true
-        , logLevel: config.LOG_INFO
+        , logLevel: config.LOG_DEBUG
+
+        , client: {
+            captureConsole: true
+            , mocha: {
+                bail: true
+            }
+        }
     });
 };

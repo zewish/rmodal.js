@@ -3,13 +3,10 @@
 [![Coverage Status](https://coveralls.io/repos/zewish/rmodal.js/badge.svg?branch=master&service=github)](https://coveralls.io/github/zewish/rmodal.js?branch=master)
 [![Downloads](https://img.shields.io/npm/dm/rmodal.svg?style=flat-square)](https://www.npmjs.com/package/rmodal)
 
+1.2 KB modal dialog box, with no dependencies
 
 <br />
-[![rmodal.js logo](https://raw.githubusercontent.com/zewish/rmodal.js/master/logo.png)](https://github.com/zewish/rmodal.js)
-
-
-1.2 KB modal dialog box, with no dependencies
----------------------------------------------
+[![logo](https://raw.githubusercontent.com/zewish/rmodal.js/master/logo.png)](https://github.com/zewish/rmodal.js)
 
 - A simple and fast modal dialog
 - Plain JavaScript only - no dependencies
@@ -32,9 +29,9 @@ http://rmodal.js.org/
 Installation
 ------------
 ```
-$ bower install rmodal --save
-# or
 $ npm install rmodal --save
+# or
+$ bower install rmodal --save
 ```
 
 
@@ -47,9 +44,13 @@ $ npm install -g gulp
 
 Development: build
 ------------------
-`$ gulp build`
+```
+$ gulp build
+```
 
 
 Development: test
 -----------------
-`$ gulp lint test`
+```
+$ gulp lint test
+```

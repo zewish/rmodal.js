@@ -10,13 +10,12 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="http://raw.github.com/daneden/animate.css/master/animate.css" type="text/css" />
 
-    <link rel="stylesheet" href="src/rmodal.css" type="text/css" />
-    <script type="text/javascript" src="src/rmodal.js"></script>
+    <link rel="stylesheet" href="dist/rmodal.css" type="text/css" />
+    <script type="text/javascript" src="dist/rmodal.js"></script>
 
     <script type="text/javascript">
         window.onload = function() {
             var modal = new RModal(document.getElementById('modal'), {
-                //content: 'Abracadabra'
                 beforeOpen: function(next) {
                     console.log('beforeOpen');
                     next();
@@ -32,10 +31,13 @@
                 , afterClose: function() {
                     console.log('closed');
                 }
+
+                // , content: 'Abracadabra'
+
                 // , bodyClass: 'modal-open'
-                // , dialogClass: 'modal-dialog modal-dialog-lg'
-                // , dialogOpenClass: 'animated fadeIn'
-                // , dialogCloseClass: 'animated fadeOut'
+                // , dialogClass: 'modal-dialog-lg'
+                // , dialogOpenClass: 'fadeIn'
+                // , dialogCloseClass: 'fadeOut'
 
                 // , focus: true
                 // , focusElements: ['input.form-control', 'textarea', 'button.btn-primary']
@@ -91,9 +93,9 @@
                 <ul>
                     <li>A simple modal dialog</li>
                     <li>Plain JavaScript only - no dependencies</li>
-                    <li>IE9+ supported</li>
-                    <li>Less than 1.3KB when gzipped and minified</li>
-                    <li>Animate.css friendly</li>
+                    <li>All browsers supported (IE9+)</li>
+                    <li>Less than 1.2 KB when gzipped and minified</li>
+                    <li>Bootstrap and Animate.css friendly</li>
                     <li>Fully unit tested</li>
                     <li>Supports CommonJS, AMD or globals</li>
                 </ul>

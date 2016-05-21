@@ -1,167 +1,158 @@
-(function(window, document) {
-    "use strict";
+'use strict';
 
-    function is(obj, type) {
-        return (Object.prototype.toString.call(obj).toLowerCase() === '[object ' + type + ']');
+let is = (obj, type) => Object.prototype.toString.call(obj).toLowerCase() === `[object ${type}]`;
+
+let addClass = (el, cls) => {
+    let arr = el.className
+    .split(/\s+/)
+    .filter((c) => !!c && c == cls);
+
+    if (!arr.length) {
+        el.className += ` ${cls}`;
     }
+}
 
-    function addClass(element, elClass) {
-        var classes = element.className.split(/\s+/);
-        if (!classes[0]) {
-            classes = [];
-        }
-        if (classes.indexOf(elClass) > -1) {
-            return;
-        }
-        classes.push(elClass);
-        element.className = classes.join(' ');
-    }
+let removeClass = (el, cls) => {
+    el.className = el.className
+    .split(/\s+/)
+    .filter((c) => !!c && c != cls)
+    .join(' ');
+}
 
-    function removeClass(element, elClass) {
-        var classes = element.className.split(/\s+/)
-            , index = classes.indexOf(elClass);
-        if (index > -1) {
-            classes.splice(index, 1);
-        }
-        element.className = classes.join(' ');
-    }
-
-    function RModal(element, options) {
+class RModal {
+    constructor(el, opts) {
         this.opened = false;
 
-        this.options = options || {};
-        this.options.bodyClass = this.options.bodyClass || 'modal-open';
-        this.options.dialogClass = this.options.dialogClass || 'modal-dialog';
-        this.options.dialogOpenClass = this.options.dialogOpenClass || 'bounceInDown';
-        this.options.dialogCloseClass = this.options.dialogCloseClass || 'bounceOutUp';
+        this.opts = {
+            bodyClass: 'modal-open'
+            , dialogClass: 'modal-dialog'
+            , dialogOpenClass: 'bounceInDown'
+            , dialogCloseClass: 'bounceOutUp'
 
-        if (this.options.escapeClose === undefined) {
-            this.options.escapeClose = true;
-        }
+            , focus: true
+            , focusElements: [
+                'a[href]', 'area[href]', 'input:not([disabled]):not([type=hidden])'
+                , 'button:not([disabled])', 'select:not([disabled])'
+                , 'textarea:not([disabled])', 'iframe', 'object', 'embed'
+                , '*[tabindex]', '*[contenteditable]'
+            ]
 
-        this.options.focusElements = this.options.focusElements || [
-            'a[href]', 'area[href]', 'input:not([disabled]):not([type=hidden])'
-            , 'button:not([disabled])', 'select:not([disabled])'
-            , 'textarea:not([disabled])', 'iframe', 'object', 'embed'
-            , '*[tabindex]', '*[contenteditable]'
-        ];
-        if (this.options.focus === undefined) {
-            this.options.focus = true;
-        }
-        this.focusOutElement = null;
+            , escapeClose: true
+            , content: null
+        };
 
-        this.overlay = element;
-        this.dialog = element.querySelector('.' + this.options.dialogClass);
+        Object.keys(opts || {})
+        .forEach((key) => {
+            /* istanbul ignore else */
+            if (opts[key] !== undefined) {
+                this.opts[key] = opts[key];
+            }
+        });
 
-        if (this.options.content !== undefined) {
-            this.content(this.options.content);
+        this.overlay = el;
+        this.dialog = el.querySelector(`.${this.opts.dialogClass}`);
+
+        if (this.opts.content) {
+            this.content(this.opts.content);
         }
     }
 
-    var proto = RModal.prototype;
-
-    RModal.version = '@@VERSION@@';
-    proto.version = '@@VERSION@@';
-
-    proto.open = function(content) {
-        var self = this;
+    open(content) {
         this.content(content);
 
-        if (is(this.options.beforeOpen, 'function')) {
-            return this.options.beforeOpen(function() {
-                self._doOpen();
-            });
+        if (!is(this.opts.beforeOpen, 'function')) {
+            return this._doOpen();
         }
-        this._doOpen();
-    };
 
-    proto._doOpen = function() {
-        var self = this;
+        this.opts.beforeOpen(() => {
+            this._doOpen();
+        });
+    }
 
-        addClass(document.body, this.options.bodyClass);
+    _doOpen() {
+        addClass(document.body, this.opts.bodyClass);
 
-        removeClass(this.dialog, this.options.dialogCloseClass);
-        addClass(this.dialog, this.options.dialogOpenClass);
+        removeClass(this.dialog, this.opts.dialogCloseClass);
+        addClass(this.dialog, this.opts.dialogOpenClass);
 
         this.overlay.style.display = 'block';
 
-        if (this.options.focus) {
+        if (this.opts.focus) {
             this.focusOutElement = document.activeElement;
             this.focus();
         }
 
-        if (is(this.options.afterOpen, 'function')) {
-            this.options.afterOpen();
+        if (is(this.opts.afterOpen, 'function')) {
+            this.opts.afterOpen();
         }
         this.opened = true;
-    };
+    }
 
-    proto.close = function(ev) {
-        var self = this;
-        if (is(this.options.beforeClose, 'function')) {
-            return this.options.beforeClose(function() {
-                self._doClose();
-            });
+    close() {
+        if (!is(this.opts.beforeClose, 'function')) {
+            return this._doClose();
         }
-        this._doClose();
-    };
 
-    proto._doClose = function() {
-        var self = this;
+        this.opts.beforeClose(() => {
+            this._doClose();
+        });
+    }
 
-        removeClass(this.dialog, this.options.dialogOpenClass);
-        addClass(this.dialog, this.options.dialogCloseClass);
+    _doClose() {
+        removeClass(this.dialog, this.opts.dialogOpenClass);
+        addClass(this.dialog, this.opts.dialogCloseClass);
 
-        removeClass(document.body, this.options.bodyClass);
+        removeClass(document.body, this.opts.bodyClass);
 
-        if (this.options.focus) {
+        if (this.opts.focus) {
             this.focus(this.focusOutElement);
         }
 
-        if (is(this.options.afterClose, 'function')) {
-            this.options.afterClose();
+        if (is(this.opts.afterClose, 'function')) {
+            this.opts.afterClose();
         }
 
         this.opened = false;
-        setTimeout(function() {
-            self.overlay.style.display = 'none';
+        setTimeout(() => {
+            this.overlay.style.display = 'none';
         }, 500);
-    };
+    }
 
-    proto.content = function(content) {
+    content(content) {
         if (content === undefined) {
             return this.dialog.innerHTML;
         }
+
         this.dialog.innerHTML = content;
-    };
+    }
 
-    proto.elements = function(selector, fallback) {
-        fallback = fallback || (window.navigator.appVersion.indexOf('MSIE 9.0') > -1);
-        return [].filter.call(this._elementsAll(selector), function(element) {
-            if (fallback) {
-                var style = window.getComputedStyle(element);
-                return (style.display !== 'none' && style.visibility !== 'hidden');
+    elements(selector, fallback) {
+        fallback = fallback || window.navigator.appVersion.indexOf('MSIE 9.0') > -1;
+        selector = is(selector, 'array') ? selector.join(',') : selector;
+
+        return [].filter.call(
+            this.dialog.querySelectorAll(selector)
+            , (element) => {
+                if (fallback) {
+                    var style = window.getComputedStyle(element);
+                    return style.display !== 'none' && style.visibility !== 'hidden';
+                }
+
+                return element.offsetParent !== null;
             }
-            return (element.offsetParent !== null);
-        });
-    };
+        );
+    }
 
-    proto._elementsAll = function(selector) {
-        if (is(selector, 'array')) {
-            selector = selector.join(',') || null;
+    focus(el) {
+        el = el || this.elements(this.opts.focusElements)[0] || this.dialog.firstChild;
+
+        if (el && is(el.focus, 'function')) {
+            el.focus();
         }
-        return this.dialog.querySelectorAll(selector);
-    };
+    }
 
-    proto.focus = function(element) {
-        element = element || this.elements(this.options.focusElements)[0] || this.dialog.firstChild;
-        if (element && is(element.focus, 'function')) {
-            element.focus();
-        }
-    };
-
-    proto.keydown = function(ev) {
-        if (this.options.escapeClose && ev.which == 27) {
+    keydown(ev) {
+        if (this.opts.escapeClose && ev.which == 27) {
             this.close();
         }
 
@@ -171,7 +162,7 @@
         }
 
         if (this.opened && ev.which == 9 && this.dialog.contains(ev.target)) {
-            var elements = this.elements(this.options.focusElements)
+            var elements = this.elements(this.opts.focusElements)
                 , first = elements[0]
                 , last = elements[elements.length - 1];
 
@@ -187,17 +178,10 @@
                 first.focus();
             }
         }
-    };
+    }
+}
 
-    if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) {
-        define(function() {
-            return RModal;
-        });
-    }
-    else if (typeof module === 'object' && module.exports) {
-        module.exports = RModal;
-    }
-    else {
-        window.RModal = RModal;
-    }
-})(window, document);
+RModal.prototype.version = '@@VERSION@@';
+RModal.version = '@@VERSION@@';
+
+export default RModal;
