@@ -1,6 +1,6 @@
 {
   "name": "rmodal",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "A simple modal dialog with no external dependencies. IE9+ supported.",
   "main": "index.js",
   "scripts": {
@@ -39,6 +39,7 @@
     "istanbul-coveralls": "^1.0.3",
     "karma": "^1.1.2",
     "karma-chai": "^0.1.0",
+    "karma-commonjs": "^1.0.0",
     "karma-coverage": "^1.1.1",
     "karma-coveralls": "^1.1.2",
     "karma-mocha": "^1.1.1",
