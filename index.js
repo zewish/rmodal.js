@@ -18,7 +18,7 @@ var removeClass = function (el, cls) {
 }
 
 var RModal = function RModal(el, opts) {
-        var this$1 = this;
+    var this$1 = this;
 
     this.opened = false;
 
@@ -56,7 +56,7 @@ var RModal = function RModal(el, opts) {
     }
 };
 
-RModal.prototype.open = function open(content) {
+RModal.prototype.open = function open (content) {
         var this$1 = this;
 
     this.content(content);
@@ -70,7 +70,7 @@ RModal.prototype.open = function open(content) {
     });
 };
 
-RModal.prototype._doOpen = function _doOpen() {
+RModal.prototype._doOpen = function _doOpen () {
     addClass(document.body, this.opts.bodyClass);
 
     removeClass(this.dialog, this.opts.dialogCloseClass);
@@ -89,7 +89,7 @@ RModal.prototype._doOpen = function _doOpen() {
     this.opened = true;
 };
 
-RModal.prototype.close = function close() {
+RModal.prototype.close = function close () {
         var this$1 = this;
 
     if (!is(this.opts.beforeClose, 'function')) {
@@ -101,7 +101,7 @@ RModal.prototype.close = function close() {
     });
 };
 
-RModal.prototype._doClose = function _doClose() {
+RModal.prototype._doClose = function _doClose () {
         var this$1 = this;
 
     removeClass(this.dialog, this.opts.dialogOpenClass);
@@ -123,7 +123,7 @@ RModal.prototype._doClose = function _doClose() {
     }, 500);
 };
 
-RModal.prototype.content = function content(content) {
+RModal.prototype.content = function content (content) {
     if (content === undefined) {
         return this.dialog.innerHTML;
     }
@@ -131,7 +131,7 @@ RModal.prototype.content = function content(content) {
     this.dialog.innerHTML = content;
 };
 
-RModal.prototype.elements = function elements(selector, fallback) {
+RModal.prototype.elements = function elements (selector, fallback) {
     fallback = fallback || window.navigator.appVersion.indexOf('MSIE 9.0') > -1;
     selector = is(selector, 'array') ? selector.join(',') : selector;
 
@@ -148,7 +148,7 @@ RModal.prototype.elements = function elements(selector, fallback) {
     );
 };
 
-RModal.prototype.focus = function focus(el) {
+RModal.prototype.focus = function focus (el) {
     el = el || this.elements(this.opts.focusElements)[0] || this.dialog.firstChild;
 
     if (el && is(el.focus, 'function')) {
@@ -156,7 +156,7 @@ RModal.prototype.focus = function focus(el) {
     }
 };
 
-RModal.prototype.keydown = function keydown(ev) {
+RModal.prototype.keydown = function keydown (ev) {
     if (this.opts.escapeClose && ev.which == 27) {
         this.close();
     }
@@ -185,7 +185,9 @@ RModal.prototype.keydown = function keydown(ev) {
     }
 };
 
-RModal.prototype.version = '1.0.20';
-RModal.version = '1.0.20';
+RModal.prototype.version = '1.0.21';
+RModal.version = '1.0.21';
 
 module.exports = RModal;
+
+//# sourceMappingURL=index.js.map

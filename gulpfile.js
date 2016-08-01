@@ -7,23 +7,24 @@ let gulp = require('gulp')
     , replace = require('gulp-replace')
     , sourcemaps = require('gulp-sourcemaps')
     , karma = require('karma').Server
-    , rollup = require('gulp-rollup')
+    , source = require('vinyl-source-stream')
+    , buffer = require('vinyl-buffer')
+    , rollup = require('rollup-stream')
     , buble = require('rollup-plugin-buble');
 
 process.chdir(__dirname);
 
 let bundle = (format) => {
-    return gulp.src(
-        'src/rmodal.js'
-        , { read: false }
-    )
-    .pipe(rollup({
-        format: format
+    return rollup({
+        entry: 'src/rmodal.js'
+        , format: format
         , moduleName: 'RModal'
         , plugins: [ buble() ]
         , sourceMap: true
         , useStrict: false
-    }))
+    })
+    .pipe(source('rmodal.js', './src'))
+    .pipe(buffer())
     .pipe(replace(
         /@@VERSION@@/g
         , require('./package.json').version
@@ -32,16 +33,7 @@ let bundle = (format) => {
 
 gulp.task('lint', () => {
     return gulp.src('src/*.js')
-    .pipe(eslint({
-        'extends': 'eslint:recommended'
-        , env: {
-            browser: true
-        }
-        , parserOptions: {
-            ecmaVersion: 6
-            , sourceType: 'module'
-        }
-    }))
+    .pipe(eslint())
     .pipe(eslint.format());
 });
 
@@ -52,9 +44,13 @@ gulp.task('css', () => {
 
 gulp.task('cjs', () => {
     return bundle('cjs')
+    .pipe(sourcemaps.init({
+        loadMaps: true
+    }))
     .pipe(rename((path) => {
         path.basename = 'index';
     }))
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./'));
 })
 
