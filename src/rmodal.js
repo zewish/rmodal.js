@@ -39,6 +39,7 @@ class RModal {
 
             , escapeClose: true
             , content: null
+            , closingTimeout : 500
         };
 
         Object.keys(opts || {})
@@ -115,7 +116,7 @@ class RModal {
         this.opened = false;
         setTimeout(() => {
             this.overlay.style.display = 'none';
-        }, 500);
+        }, this.opts.closingTimeout || 500);
     }
 
     content(content) {
