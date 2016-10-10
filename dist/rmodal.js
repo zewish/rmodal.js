@@ -44,7 +44,7 @@ var RModal = function RModal(el, opts) {
 
         , escapeClose: true
         , content: null
-        , closingTimeout: 500
+        , closeTimeout: 500
     };
 
     Object.keys(opts || {})
@@ -127,7 +127,7 @@ RModal.prototype._doClose = function _doClose () {
     this.opened = false;
     setTimeout(function () {
         this$1.overlay.style.display = 'none';
-    }, this.opts.closingTimeout);
+    }, this.opts.closeTimeout);
 };
 
 RModal.prototype.content = function content (content) {
