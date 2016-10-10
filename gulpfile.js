@@ -56,6 +56,9 @@ gulp.task('cjs', () => {
 
 gulp.task('js', [ 'cjs' ], () => {
     return bundle('umd')
+    .pipe(sourcemaps.init({
+        loadMaps: true
+    }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('dist'));
 });

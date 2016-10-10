@@ -8,14 +8,14 @@ var addClass = function (el, cls) {
     if (!arr.length) {
         el.className += " " + cls;
     }
-}
+};
 
 var removeClass = function (el, cls) {
     el.className = el.className
     .split(/\s+/)
     .filter(function (c) { return !!c && c != cls; })
     .join(' ');
-}
+};
 
 var RModal = function RModal(el, opts) {
     var this$1 = this;
@@ -38,6 +38,7 @@ var RModal = function RModal(el, opts) {
 
         , escapeClose: true
         , content: null
+        , closingTimeout: 500
     };
 
     Object.keys(opts || {})
@@ -120,7 +121,7 @@ RModal.prototype._doClose = function _doClose () {
     this.opened = false;
     setTimeout(function () {
         this$1.overlay.style.display = 'none';
-    }, 500);
+    }, this.opts.closingTimeout);
 };
 
 RModal.prototype.content = function content (content) {
@@ -185,8 +186,8 @@ RModal.prototype.keydown = function keydown (ev) {
     }
 };
 
-RModal.prototype.version = '1.0.21';
-RModal.version = '1.0.21';
+RModal.prototype.version = '1.0.23';
+RModal.version = '1.0.23';
 
 module.exports = RModal;
 
