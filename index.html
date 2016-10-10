@@ -167,11 +167,12 @@
 <pre>
 <span class="p">{</span>
       <span class="nx">content</span><span class="o">:</span> <span class="s1">'This may be used to override all of the dialog inner html'</span>
+      <span class="nx">, closeTimeout</span><span class="o">:</span> <span class="s1">500</span> <span class="c1">// Time to wait (ms) before afterClose() is called</span>
 
       <span class="cm">/**</span>
   <span class="cm">     * Callbacks</span>
   <span class="cm">     */</span>
-      <span class="nx">beforeOpen</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">, beforeOpen</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
           <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'I will execute right before the dialog is shown'</span><span class="p">);</span>
           <span class="nx">next</span><span class="p">();</span>
       <span class="p">}</span>
