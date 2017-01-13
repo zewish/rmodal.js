@@ -29,7 +29,7 @@ let bundle = (format) => {
         /@@VERSION@@/g
         , require('./package.json').version
     ));
-}
+};
 
 gulp.task('lint', () => {
     return gulp.src('src/*.js')
@@ -52,7 +52,8 @@ gulp.task('cjs', () => {
     }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./'));
-})
+});
+
 
 gulp.task('js', [ 'cjs' ], () => {
     return bundle('umd')

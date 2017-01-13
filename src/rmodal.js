@@ -10,14 +10,14 @@ let addClass = (el, cls) => {
     if (!arr.length) {
         el.className += ` ${cls}`;
     }
-}
+};
 
 let removeClass = (el, cls) => {
     el.className = el.className
     .split(/\s+/)
     .filter((c) => !!c && c != cls)
     .join(' ');
-}
+};
 
 class RModal {
     constructor(el, opts) {
@@ -119,12 +119,12 @@ class RModal {
         }, this.opts.closeTimeout);
     }
 
-    content(content) {
-        if (content === undefined) {
+    content(html) {
+        if (html === undefined) {
             return this.dialog.innerHTML;
         }
 
-        this.dialog.innerHTML = content;
+        this.dialog.innerHTML = html;
     }
 
     elements(selector, fallback) {

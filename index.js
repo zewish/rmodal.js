@@ -124,12 +124,12 @@ RModal.prototype._doClose = function _doClose () {
     }, this.opts.closeTimeout);
 };
 
-RModal.prototype.content = function content (content) {
-    if (content === undefined) {
+RModal.prototype.content = function content (html) {
+    if (html === undefined) {
         return this.dialog.innerHTML;
     }
 
-    this.dialog.innerHTML = content;
+    this.dialog.innerHTML = html;
 };
 
 RModal.prototype.elements = function elements (selector, fallback) {
@@ -186,9 +186,8 @@ RModal.prototype.keydown = function keydown (ev) {
     }
 };
 
-RModal.prototype.version = '1.0.23';
-RModal.version = '1.0.23';
+RModal.prototype.version = '1.0.24';
+RModal.version = '1.0.24';
 
 module.exports = RModal;
-
 //# sourceMappingURL=index.js.map
