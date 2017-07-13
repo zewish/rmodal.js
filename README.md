@@ -7,7 +7,7 @@
 1.2 KB modal dialog box, with no dependencies
 
 <br />
-![logo](https://raw.githubusercontent.com/zewish/rmodal.js/master/logo.png)
+[![logo](https://rawgit.com/zewish/rmodal.js/master/logo.png)](http://rmodal.js.org)
 
 - A simple and fast modal dialog
 - Plain JavaScript only - no dependencies
