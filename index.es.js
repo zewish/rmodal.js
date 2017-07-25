@@ -1,9 +1,3 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.RModal = factory());
-}(this, (function () {
-
 var is = function (obj, type) { return Object.prototype.toString.call(obj).toLowerCase() === ("[object " + type + "]"); };
 
 var addClass = function (el, cls) {
@@ -195,7 +189,5 @@ RModal.prototype.keydown = function keydown (ev) {
 RModal.prototype.version = '1.0.24';
 RModal.version = '1.0.24';
 
-return RModal;
-
-})));
-//# sourceMappingURL=rmodal.js.map
+export default RModal;
+//# sourceMappingURL=index.es.js.map

@@ -54,8 +54,19 @@ gulp.task('cjs', () => {
     .pipe(gulp.dest('./'));
 });
 
+gulp.task('es', () => {
+    return bundle('es')
+    .pipe(sourcemaps.init({
+        loadMaps: true
+    }))
+    .pipe(rename((path) => {
+        path.basename = 'index.es';
+    }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('./'));
+});
 
-gulp.task('js', [ 'cjs' ], () => {
+gulp.task('js', [ 'cjs', 'es' ], () => {
     return bundle('umd')
     .pipe(sourcemaps.init({
         loadMaps: true
