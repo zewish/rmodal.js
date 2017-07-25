@@ -102,7 +102,7 @@ describe('RModal', function() {
 
         it('should assign "this.dialog" to an HTMLElement', function() {
             var instance = create();
-            expect(instance.dialog).to.be.instanceof(HTMLElement);
+            expect(instance.dialog instanceof HTMLElement).to.be.true;
         });
 
         it('should not call "this.content()"', function() {

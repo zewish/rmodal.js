@@ -1,6 +1,6 @@
 {
   "name": "rmodal",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "A simple modal dialog with no external dependencies. IE9+ supported.",
   "main": "index.js",
   "module": "index.es.js",
