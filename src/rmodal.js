@@ -1,5 +1,3 @@
-'use strict';
-
 let is = (obj, type) => Object.prototype.toString.call(obj).toLowerCase() === `[object ${type}]`;
 
 let addClass = (el, cls) => {

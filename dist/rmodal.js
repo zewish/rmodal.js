@@ -2,7 +2,7 @@
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
 	(global.RModal = factory());
-}(this, (function () {
+}(this, (function () { 'use strict';
 
 var is = function (obj, type) { return Object.prototype.toString.call(obj).toLowerCase() === ("[object " + type + "]"); };
 
@@ -192,8 +192,8 @@ RModal.prototype.keydown = function keydown (ev) {
     }
 };
 
-RModal.prototype.version = '1.0.26';
-RModal.version = '1.0.26';
+RModal.prototype.version = '1.0.27';
+RModal.version = '1.0.27';
 
 return RModal;
 

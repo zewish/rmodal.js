@@ -16,12 +16,11 @@ process.chdir(__dirname);
 
 let bundle = (format) => {
     return rollup({
-        entry: 'src/rmodal.js'
+        input: 'src/rmodal.js'
         , format: format
-        , moduleName: 'RModal'
+        , name: 'RModal'
         , plugins: [ buble() ]
-        , sourceMap: true
-        , useStrict: false
+        , sourcemap: true
     })
     .pipe(source('rmodal.js', './src'))
     .pipe(buffer())

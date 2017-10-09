@@ -1,3 +1,5 @@
+'use strict';
+
 var is = function (obj, type) { return Object.prototype.toString.call(obj).toLowerCase() === ("[object " + type + "]"); };
 
 var addClass = function (el, cls) {
@@ -186,8 +188,8 @@ RModal.prototype.keydown = function keydown (ev) {
     }
 };
 
-RModal.prototype.version = '1.0.26';
-RModal.version = '1.0.26';
+RModal.prototype.version = '1.0.27';
+RModal.version = '1.0.27';
 
 module.exports = RModal;
 //# sourceMappingURL=index.js.map
