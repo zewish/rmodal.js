@@ -40,18 +40,17 @@ Development
 -----------
 ```
 $ npm install
-$ npm install -g gulp
 ```
 
 Development: build
 ------------------
 ```
-$ gulp build
+$ npm run build
 ```
 
 
 Development: test
 -----------------
 ```
-$ gulp lint test
+$ npm run test
 ```
