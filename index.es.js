@@ -186,8 +186,8 @@ RModal.prototype.keydown = function keydown (ev) {
     }
 };
 
-RModal.prototype.version = '1.0.29';
-RModal.version = '1.0.29';
+RModal.prototype.version = '1.0.30';
+RModal.version = '1.0.30';
 
 export default RModal;
 //# sourceMappingURL=index.es.js.map
