@@ -1,6 +1,6 @@
 {
   "name": "rmodal",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "description": "A simple modal dialog with no external dependencies. IE9+ supported.",
   "main": "index.js",
   "module": "index.es.js",
@@ -8,7 +8,7 @@
   "scripts": {
     "test": "gulp lint && gulp test",
     "build": "gulp build",
-    "prepublishOnly": "gulp build"
+    "prepare": "gulp build"
   },
   "repository": {
     "type": "git",

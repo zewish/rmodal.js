@@ -192,8 +192,8 @@ RModal.prototype.keydown = function keydown (ev) {
     }
 };
 
-RModal.prototype.version = '1.0.30';
-RModal.version = '1.0.30';
+RModal.prototype.version = '1.0.31';
+RModal.version = '1.0.31';
 
 return RModal;
 
