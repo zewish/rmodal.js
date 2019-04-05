@@ -14,7 +14,7 @@ declare class RModal {
   elements(selector: string | string[], fallback?: boolean): Array<HTMLElement>;
   focus(el?: HTMLElement): void;
   keydown(ev: KeyboardEvent): void;
-  open(content: string): void;
+  open(content?: string): void;
 }
 
 declare namespace RModal {
