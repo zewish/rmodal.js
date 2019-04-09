@@ -1,7 +1,7 @@
-let is = (obj, type) => Object.prototype.toString.call(obj).toLowerCase() === `[object ${type}]`;
+const is = (obj, type) => Object.prototype.toString.call(obj).toLowerCase() === `[object ${type}]`;
 
-let addClass = (el, cls) => {
-    let arr = el.className
+const addClass = (el, cls) => {
+    const arr = el.className
     .split(/\s+/)
     .filter((c) => !!c && c == cls);
 
@@ -10,7 +10,7 @@ let addClass = (el, cls) => {
     }
 };
 
-let removeClass = (el, cls) => {
+const removeClass = (el, cls) => {
     el.className = el.className
     .split(/\s+/)
     .filter((c) => !!c && c != cls)
@@ -133,7 +133,7 @@ class RModal {
             this.dialog.querySelectorAll(selector)
             , (element) => {
                 if (fallback) {
-                    var style = window.getComputedStyle(element);
+                    const style = window.getComputedStyle(element);
                     return style.display !== 'none' && style.visibility !== 'hidden';
                 }
 
@@ -155,13 +155,13 @@ class RModal {
             this.close();
         }
 
-        function stopEvent() {
+        const stopEvent = () => {
             ev.preventDefault();
             ev.stopPropagation();
         }
 
         if (this.opened && ev.which == 9 && this.dialog.contains(ev.target)) {
-            var elements = this.elements(this.opts.focusElements)
+            const elements = this.elements(this.opts.focusElements)
                 , first = elements[0]
                 , last = elements[elements.length - 1];
 

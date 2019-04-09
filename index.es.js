@@ -162,10 +162,10 @@ RModal.prototype.keydown = function keydown (ev) {
         this.close();
     }
 
-    function stopEvent() {
+    var stopEvent = function () {
         ev.preventDefault();
         ev.stopPropagation();
-    }
+    };
 
     if (this.opened && ev.which == 9 && this.dialog.contains(ev.target)) {
         var elements = this.elements(this.opts.focusElements)
@@ -186,8 +186,8 @@ RModal.prototype.keydown = function keydown (ev) {
     }
 };
 
-RModal.prototype.version = '1.0.31';
-RModal.version = '1.0.31';
+RModal.prototype.version = '1.0.32';
+RModal.version = '1.0.32';
 
 export default RModal;
 //# sourceMappingURL=index.es.js.map
