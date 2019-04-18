@@ -15,7 +15,7 @@ declare namespace RModal {
 }
 
 declare class RModal {
-    constructor(el: HTMLElement, opts?: RModalOptions);
+    constructor(el: HTMLElement, opts?: RModal.RModalOptions);
     version: string;
     close(): void;
     content(content?: string): string | void;
