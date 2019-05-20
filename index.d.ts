@@ -1,6 +1,8 @@
 declare namespace RModal {
     export interface RModalOptions {
         afterClose?(): void;
+        afterOpen?(): void;
+        beforeClose?(callback: Function): void;
         beforeOpen?(callback: Function): void;
         bodyClass?: string;
         closeTimeout?: number;
