@@ -357,12 +357,15 @@ describe('RModal', function() {
 
         it('should call "this.opts.afterClose" if it is a function"', function() {
             var spy = sinon.spy();
+            var timers = sinon.useFakeTimers();
             var instance = create({
                 afterClose: spy
             });
 
             instance._doClose();
+            timers.tick(instance.opts.closeTimeout);
             expect(spy.calledOnce).to.be.true;
+            timers.restore();
         });
 
         it('should call set "this.overlay.style.display" to "none"', function() {

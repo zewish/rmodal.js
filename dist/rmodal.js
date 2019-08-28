@@ -120,13 +120,13 @@ RModal.prototype._doClose = function _doClose () {
         this.focus(this.focusOutElement);
     }
 
-    if (is(this.opts.afterClose, 'function')) {
-        this.opts.afterClose();
-    }
-
-    this.opened = false;
     setTimeout(function () {
         this$1.overlay.style.display = 'none';
+
+        if (is(this$1.opts.afterClose, 'function')) {
+            this$1.opts.afterClose();
+        }
+        this$1.opened = false;
     }, this.opts.closeTimeout);
 };
 

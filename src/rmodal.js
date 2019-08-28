@@ -107,13 +107,13 @@ class RModal {
             this.focus(this.focusOutElement);
         }
 
-        if (is(this.opts.afterClose, 'function')) {
-            this.opts.afterClose();
-        }
-
-        this.opened = false;
         setTimeout(() => {
             this.overlay.style.display = 'none';
+
+            if (is(this.opts.afterClose, 'function')) {
+                this.opts.afterClose();
+            }
+            this.opened = false;
         }, this.opts.closeTimeout);
     }
 
