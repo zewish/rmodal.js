@@ -19,30 +19,29 @@
                 beforeOpen: function(next) {
                     console.log('beforeOpen');
                     next();
-                }
-                , afterOpen: function() {
+                },
+                afterOpen: function() {
                     console.log('opened');
-                }
-
-                , beforeClose: function(next) {
+                },
+                beforeClose: function(next) {
                     console.log('beforeClose');
                     next();
-                }
-                , afterClose: function() {
+                },
+                afterClose: function() {
                     console.log('closed');
                 }
 
-                // , content: 'Abracadabra'
+                // content: 'Abracadabra',
 
-                // , bodyClass: 'modal-open'
-                // , dialogClass: 'modal-dialog-lg'
-                // , dialogOpenClass: 'fadeIn'
-                // , dialogCloseClass: 'fadeOut'
+                // bodyClass: 'modal-open',
+                // dialogClass: 'modal-dialog-lg',
+                // dialogOpenClass: 'fadeIn',
+                // dialogCloseClass: 'fadeOut',
 
-                // , focus: true
-                // , focusElements: ['input.form-control', 'textarea', 'button.btn-primary']
+                // focus: true,
+                // focusElements: ['input.form-control', 'textarea', 'button.btn-primary'],
 
-                // , escapeClose: true
+                // escapeClose: true,
             });
 
             document.addEventListener('keydown', function(ev) {

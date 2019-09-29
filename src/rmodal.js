@@ -22,22 +22,20 @@ class RModal {
         this.opened = false;
 
         this.opts = {
-            bodyClass: 'modal-open'
-            , dialogClass: 'modal-dialog'
-            , dialogOpenClass: 'bounceInDown'
-            , dialogCloseClass: 'bounceOutUp'
-
-            , focus: true
-            , focusElements: [
-                'a[href]', 'area[href]', 'input:not([disabled]):not([type=hidden])'
-                , 'button:not([disabled])', 'select:not([disabled])'
-                , 'textarea:not([disabled])', 'iframe', 'object', 'embed'
-                , '*[tabindex]', '*[contenteditable]'
-            ]
-
-            , escapeClose: true
-            , content: null
-            , closeTimeout: 500
+            bodyClass: 'modal-open',
+            dialogClass: 'modal-dialog',
+            dialogOpenClass: 'bounceInDown',
+            dialogCloseClass: 'bounceOutUp',
+            focus: true,
+            focusElements: [
+                'a[href]', 'area[href]', 'input:not([disabled]):not([type=hidden])',
+                'button:not([disabled])', 'select:not([disabled])',
+                'textarea:not([disabled])', 'iframe', 'object', 'embed',
+                '*[tabindex]', '*[contenteditable]'
+            ],
+            escapeClose: true,
+            content: null,
+            closeTimeout: 500
         };
 
         Object.keys(opts || {})
@@ -161,9 +159,9 @@ class RModal {
         }
 
         if (this.opened && ev.which == 9 && this.dialog.contains(ev.target)) {
-            const elements = this.elements(this.opts.focusElements)
-                , first = elements[0]
-                , last = elements[elements.length - 1];
+            const elements = this.elements(this.opts.focusElements),
+                first = elements[0],
+                last = elements[elements.length - 1];
 
             if (first == last) {
                 stopEvent();

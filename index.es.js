@@ -23,22 +23,20 @@ var RModal = function RModal(el, opts) {
     this.opened = false;
 
     this.opts = {
-        bodyClass: 'modal-open'
-        , dialogClass: 'modal-dialog'
-        , dialogOpenClass: 'bounceInDown'
-        , dialogCloseClass: 'bounceOutUp'
-
-        , focus: true
-        , focusElements: [
-            'a[href]', 'area[href]', 'input:not([disabled]):not([type=hidden])'
-            , 'button:not([disabled])', 'select:not([disabled])'
-            , 'textarea:not([disabled])', 'iframe', 'object', 'embed'
-            , '*[tabindex]', '*[contenteditable]'
-        ]
-
-        , escapeClose: true
-        , content: null
-        , closeTimeout: 500
+        bodyClass: 'modal-open',
+        dialogClass: 'modal-dialog',
+        dialogOpenClass: 'bounceInDown',
+        dialogCloseClass: 'bounceOutUp',
+        focus: true,
+        focusElements: [
+            'a[href]', 'area[href]', 'input:not([disabled]):not([type=hidden])',
+            'button:not([disabled])', 'select:not([disabled])',
+            'textarea:not([disabled])', 'iframe', 'object', 'embed',
+            '*[tabindex]', '*[contenteditable]'
+        ],
+        escapeClose: true,
+        content: null,
+        closeTimeout: 500
     };
 
     Object.keys(opts || {})
@@ -168,9 +166,9 @@ RModal.prototype.keydown = function keydown (ev) {
     };
 
     if (this.opened && ev.which == 9 && this.dialog.contains(ev.target)) {
-        var elements = this.elements(this.opts.focusElements)
-            , first = elements[0]
-            , last = elements[elements.length - 1];
+        var elements = this.elements(this.opts.focusElements),
+            first = elements[0],
+            last = elements[elements.length - 1];
 
         if (first == last) {
             stopEvent();
@@ -186,8 +184,8 @@ RModal.prototype.keydown = function keydown (ev) {
     }
 };
 
-RModal.prototype.version = '1.0.35';
-RModal.version = '1.0.35';
+RModal.prototype.version = '1.0.36';
+RModal.version = '1.0.36';
 
 export default RModal;
 //# sourceMappingURL=index.es.js.map
