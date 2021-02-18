@@ -24,7 +24,7 @@ module.exports = (config) => {
             'progress'
         ],
         coverageReporter: {
-            type: 'lcov',
+            type: 'html',
             dir: 'coverage/'
         },
         browsers: [ 'PhantomJS' ],
@@ -44,6 +44,11 @@ module.exports = (config) => {
             }
         }
     };
+
+    if (process.env.CI) {
+        opts.coverageReporter.type = 'lcov';
+        opts.reporters.push('coveralls');
+    }
 
     config.set(opts);
 };
