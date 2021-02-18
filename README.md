@@ -1,5 +1,5 @@
 [![NPM version](https://img.shields.io/npm/v/rmodal.svg?style=flat-square)](https://www.npmjs.com/package/rmodal)
-[![Build Status](https://travis-ci.org/zewish/rmodal.js.svg?branch=master)](https://travis-ci.org/zewish/rmodal.js)
+[![Build Status](https://github.com/zewish/rmodal.js/workflows/build/badge.svg)](https://github.com/zewish/rmodal.js/actions?query=workflow%3Abuild)
 [![Coverage Status](https://coveralls.io/repos/github/zewish/rmodal.js/badge.svg?branch=master)](https://coveralls.io/github/zewish/rmodal.js?branch=master)
 [![Dependencies](https://david-dm.org/zewish/rmodal.js.svg)](https://david-dm.org/zewish/rmodal.js)
 [![Downloads](https://img.shields.io/npm/dm/rmodal.svg?style=flat-square)](https://www.npmjs.com/package/rmodal)
@@ -31,8 +31,6 @@ Installation
 ------------
 ```
 $ npm install rmodal --save
-# or
-$ bower install rmodal --save
 ```
 
 

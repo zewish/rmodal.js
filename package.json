@@ -1,10 +1,11 @@
 {
   "name": "rmodal",
-  "version": "1.0.36",
+  "version": "1.0.37",
   "description": "A simple modal dialog with no external dependencies. IE9+ supported.",
   "main": "index.js",
   "module": "index.es.js",
   "jsnext:main": "index.es.js",
+  "sideEffects": false,
   "scripts": {
     "lint": "eslint ./src/*.js",
     "test": "npm run lint && karma start --single-run",
@@ -15,6 +16,14 @@
     "build": "concurrently npm:build:umd npm:build:umd-min npm:build:es npm:build:cjs",
     "prepare": "npm run build && npm run test"
   },
+  "files": [
+    "dist",
+    "index.js",
+    "index.js.map",
+    "index.es.js",
+    "index.es.js.map",
+    "index.d.ts"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/zewish/rmodal.js.git"

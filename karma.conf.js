@@ -45,7 +45,7 @@ module.exports = (config) => {
         }
     };
 
-    if (process.env.TRAVIS) {
+    if (process.env.CI) {
         opts.coverageReporter.type = 'lcov';
         opts.reporters.push('coveralls');
     }
