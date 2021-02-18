@@ -10,7 +10,7 @@ jobs:
         node-version: 14.x
         check-latest: true
     - run: npm install
-    - run: npm run prepare
+    - run: ls -lah coverage/*
     - uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
