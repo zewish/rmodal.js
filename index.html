@@ -4,15 +4,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta charset="UTF-8" />
-
     <title>rmodal.js</title>
 
     <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/animate.css/animate.css" type="text/css" />
-
     <link rel="stylesheet" href="dist/rmodal-no-bootstrap.css" type="text/css" />
-    <script type="text/javascript" src="dist/rmodal.js"></script>
 
+    <script type="text/javascript" src="dist/rmodal.js"></script>
     <script type="text/javascript">
         window.onload = function() {
             var modal = new RModal(document.getElementById('modal'), {
@@ -29,14 +27,13 @@
                 },
                 afterClose: function() {
                     console.log('closed');
-                }
-
-                // content: 'Abracadabra',
-
+                },
+                dialogOpenClass: 'animate__slideInDown',
+                dialogCloseClass: 'animate__slideOutUp'
                 // bodyClass: 'modal-open',
                 // dialogClass: 'modal-dialog-lg',
-                // dialogOpenClass: 'fadeIn',
-                // dialogCloseClass: 'fadeOut',
+
+                // content: 'Abracadabra',
 
                 // focus: true,
                 // focusElements: ['input.form-control', 'textarea', 'button.btn-primary'],
@@ -58,9 +55,8 @@
     </script>
 </head>
 <body>
-
     <div id="modal" class="modal">
-        <div class="modal-dialog animated">
+        <div class="modal-dialog animate__animated">
             <div class="modal-content">
                 <form class="form-horizontal" method="get">
                     <div class="modal-header">
