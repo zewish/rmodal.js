@@ -13,7 +13,7 @@
     "build:umd-min": "cross-env UGLIFY_JS=true rollup -f umd -c ./rollup.config.js -o ./dist/rmodal.min.js",
     "build:es": "rollup -f esm -c ./rollup.config.js -o ./index.es.js",
     "build:cjs": "rollup -f cjs -c ./rollup.config.js -o ./index.js",
-    "build:copy-css": "cp ./src/*.css ./dist",
+    "build:copy-css": "mkdir -p ./dist && cp ./src/*.css ./dist",
     "build": "concurrently npm:build:umd npm:build:umd-min npm:build:es npm:build:cjs npm:build:copy-css",
     "prepare": "npm run build && npm run test"
   },
