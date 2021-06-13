@@ -8,6 +8,11 @@
 - Bootstrap and Animate.css friendly
 - Supports CommonJS, AMD or globals
 
+## Installation
+```
+npm install rmodal
+```
+
 ## Usage
 ```js
 <!DOCTYPE html>
