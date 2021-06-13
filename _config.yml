@@ -1,9 +1,5 @@
-title: rmodal.js
 description: A simple modal dialog with no external dependencies
 logo: /logo.png
 google_analytics:
 show_downloads: true
 theme: jekyll-theme-minimal
-
-gems:
-  - jekyll-mentions
