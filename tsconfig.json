@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "lib": ["ES5", "DOM"],
+    "target": "ES5",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "typeRoots": [
+    "./node_modules/@types"
+    ]
+  },
+  "include": ["src/*", "src/**/*"]
+}

@@ -11,7 +11,7 @@
 
 - A simple and fast modal dialog
 - Plain JavaScript only - no dependencies
-- All browsers supported (IE9+)
+- All browsers supported (IE10+)
 - Less than 1.2 KB when gzipped and minified
 - Bootstrap and Animate.css friendly
 - Supports ES modules, CommonJS, AMD or globals

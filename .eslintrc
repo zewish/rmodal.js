@@ -1,10 +1,18 @@
 {
-    "extends": "eslint:recommended",
-    "env": {
-        "browser": true
-    },
-    "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module"
-    }
+  "root": true,
+  "extends": [
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "settings": {
+    "import/extensions": [".ts"]
+  },
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off"
+  }
 }
