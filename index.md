@@ -1,4 +1,4 @@
-## rmodal.js
+# rmodal.js
 *A simple modal dialog with no external dependencies*
 
 - A simple and fast modal dialog
@@ -8,7 +8,7 @@
 - Bootstrap and Animate.css friendly
 - Supports CommonJS, AMD or globals
 
-## Demo?
+### Demo?
 [See demo here](https://plnkr.co/edit/XXFKwHHcZD4Ecjh8twaW)
 
 ### Installation
