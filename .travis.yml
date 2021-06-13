@@ -1,9 +1,0 @@
-language: node_js
-node_js:
-    - "lts/*"
-branches:
-    only:
-        - "master"
-before_script:
-    - npm install -g coveralls
-script: npm run prepare
