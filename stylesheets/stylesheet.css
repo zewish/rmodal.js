@@ -422,7 +422,3 @@ Small Device Styles
     font-size: 11px;
   }
 }
-
-footer, header > h1 {
-  display: none;
-}

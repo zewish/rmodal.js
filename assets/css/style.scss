@@ -1,1 +1,5 @@
 @import "{{ site.theme }";
+
+footer, header > h1 {
+  display: none;
+}
