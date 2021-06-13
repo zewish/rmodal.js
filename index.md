@@ -1,4 +1,4 @@
-# rmodal.js
+## rmodal.js
 *A simple modal dialog with no external dependencies*
 
 - A simple and fast modal dialog
@@ -8,13 +8,16 @@
 - Bootstrap and Animate.css friendly
 - Supports CommonJS, AMD or globals
 
-## Installation
+## Demo?
+[See demo here](https://plnkr.co/edit/XXFKwHHcZD4Ecjh8twaW)
+
+### Installation
 ```
 npm install rmodal
 ```
 
-## Usage
-```js
+### Usage
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,7 +81,7 @@ npm install rmodal
 </html>
 ```
 
-## Options
+### Options
 ```js
 {
   content: 'This may be used to override all of the dialog inner html',
